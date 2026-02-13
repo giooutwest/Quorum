@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {View, FlatList, Text, StyleSheet, Alert} from 'react-native';
+import {View, FlatList, Text, StyleSheet, Alert, Platform} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {DealCard} from '@components';
 import {mockDeals} from '@data';
@@ -9,7 +9,12 @@ import {Deal} from '@app-types';
 const FeedScreen: React.FC = () => {
   const handleCommit = useCallback((dealId: string) => {
     const deal = mockDeals.find(d => d.id === dealId);
-    Alert.alert('COMMITMENT', `You are committing to ${deal?.name || 'this deal'}.`);
+    const message = `You are committing to ${deal?.name || 'this deal'}.`;
+    if (Platform.OS === 'web') {
+      window.alert(message);
+    } else {
+      Alert.alert('COMMITMENT', message);
+    }
   }, []);
 
   const renderDeal = useCallback(
