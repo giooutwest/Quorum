@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {View, StyleSheet} from 'react-native';
-import {FeedScreen, PortfolioScreen, ClubsScreen} from '@screens';
+import {FeedScreen, ClubsScreen, ProfileScreen} from '@screens';
 import {Colors, Typography} from '@theme';
 
 // Deals icon — document with folded corner
@@ -15,34 +15,28 @@ const DealsIcon = ({focused}: {focused: boolean}) => (
   </View>
 );
 
-// Portfolio icon — bar chart
-const PortfolioIcon = ({focused}: {focused: boolean}) => (
-  <View style={[iconStyles.box, focused && iconStyles.boxFocused]}>
-    <View style={iconStyles.barChart}>
-      <View style={[iconStyles.bar, {height: 8}]} />
-      <View style={[iconStyles.bar, {height: 14}]} />
-      <View style={[iconStyles.bar, {height: 11}]} />
-    </View>
-  </View>
-);
-
 // Pools icon — diagonal pool outline with ladder and flamingo float
 const PoolsIcon = ({focused}: {focused: boolean}) => (
   <View style={[iconStyles.box, focused && iconStyles.boxFocused]}>
     <View style={iconStyles.poolContainer}>
-      {/* Pool shape — tilted rectangle */}
       <View style={iconStyles.poolShape}>
-        {/* Ladder — left side */}
         <View style={iconStyles.ladderLeft} />
         <View style={iconStyles.ladderRight} />
         <View style={iconStyles.ladderRung1} />
         <View style={iconStyles.ladderRung2} />
-        {/* Flamingo float — circle with accent color */}
         <View style={iconStyles.floatBody}>
           <View style={iconStyles.floatShades} />
         </View>
       </View>
     </View>
+  </View>
+);
+
+// Profile icon — person silhouette (head + shoulders)
+const ProfileIcon = ({focused}: {focused: boolean}) => (
+  <View style={[iconStyles.box, focused && iconStyles.boxFocused]}>
+    <View style={iconStyles.personHead} />
+    <View style={iconStyles.personBody} />
   </View>
 );
 
@@ -83,16 +77,6 @@ const iconStyles = StyleSheet.create({
     height: 2,
     backgroundColor: Colors.primaryBlack,
   },
-  // Portfolio — bar chart
-  barChart: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    gap: 3,
-  },
-  bar: {
-    width: 5,
-    backgroundColor: Colors.primaryBlack,
-  },
   // Pools — diagonal pool with ladder and flamingo
   poolContainer: {
     width: 24,
@@ -122,7 +106,7 @@ const iconStyles = StyleSheet.create({
     left: 6,
     width: 1.5,
     height: 8,
-  backgroundColor: Colors.primaryBlack,
+    backgroundColor: Colors.primaryBlack,
   },
   ladderRung1: {
     position: 'absolute',
@@ -160,12 +144,27 @@ const iconStyles = StyleSheet.create({
     backgroundColor: Colors.primaryBlack,
     borderRadius: 1,
   },
+  // Profile — person silhouette
+  personHead: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: Colors.primaryBlack,
+    marginBottom: 2,
+  },
+  personBody: {
+    width: 18,
+    height: 8,
+    borderTopLeftRadius: 9,
+    borderTopRightRadius: 9,
+    backgroundColor: Colors.primaryBlack,
+  },
 });
 
 export type BottomTabParamList = {
   Feed: undefined;
   Pools: undefined;
-  Portfolio: undefined;
+  Profile: undefined;
 };
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
@@ -207,11 +206,11 @@ const BottomTabs: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name="Portfolio"
-        component={PortfolioScreen}
+        name="Profile"
+        component={ProfileScreen}
         options={{
-          tabBarLabel: 'Portfolio',
-          tabBarIcon: ({focused}) => <PortfolioIcon focused={focused} />,
+          tabBarLabel: 'You',
+          tabBarIcon: ({focused}) => <ProfileIcon focused={focused} />,
         }}
       />
     </Tab.Navigator>

@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
 import {FeedScreen} from './src/screens';
-import {PortfolioScreen} from './src/screens';
 import {ClubsScreen} from './src/screens';
+import {ProfileScreen} from './src/screens';
 import {Colors, Typography} from './src/theme';
 
-type TabKey = 'deals' | 'pools' | 'portfolio';
+type TabKey = 'deals' | 'pools' | 'you';
 
 // --- Geometric tab icons ---
 
@@ -37,14 +37,11 @@ const PoolsIcon = ({focused}: {focused: boolean}) => (
   </View>
 );
 
-// Portfolio icon — bar chart
-const PortfolioIcon = ({focused}: {focused: boolean}) => (
+// Profile icon — person silhouette (head + shoulders)
+const ProfileIcon = ({focused}: {focused: boolean}) => (
   <View style={[iconStyles.box, focused && iconStyles.boxFocused]}>
-    <View style={iconStyles.barChart}>
-      <View style={[iconStyles.bar, {height: 8}]} />
-      <View style={[iconStyles.bar, {height: 14}]} />
-      <View style={[iconStyles.bar, {height: 11}]} />
-    </View>
+    <View style={iconStyles.personHead} />
+    <View style={iconStyles.personBody} />
   </View>
 );
 
@@ -152,14 +149,19 @@ const iconStyles = StyleSheet.create({
     backgroundColor: Colors.primaryBlack,
     borderRadius: 1,
   },
-  // Portfolio — bar chart
-  barChart: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    gap: 3,
+  // Profile — person silhouette
+  personHead: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: Colors.primaryBlack,
+    marginBottom: 2,
   },
-  bar: {
-    width: 5,
+  personBody: {
+    width: 18,
+    height: 8,
+    borderTopLeftRadius: 9,
+    borderTopRightRadius: 9,
     backgroundColor: Colors.primaryBlack,
   },
 });
@@ -227,7 +229,7 @@ const errorStyles = StyleSheet.create({
 const TABS: {key: TabKey; label: string; Icon: React.FC<{focused: boolean}>}[] = [
   {key: 'deals', label: 'Deals', Icon: DealsIcon},
   {key: 'pools', label: 'Pools', Icon: PoolsIcon},
-  {key: 'portfolio', label: 'Portfolio', Icon: PortfolioIcon},
+  {key: 'you', label: 'You', Icon: ProfileIcon},
 ];
 
 // --- Main App ---
@@ -241,8 +243,8 @@ const App: React.FC = () => {
         return <FeedScreen />;
       case 'pools':
         return <ClubsScreen />;
-      case 'portfolio':
-        return <PortfolioScreen />;
+      case 'you':
+        return <ProfileScreen />;
     }
   };
 
