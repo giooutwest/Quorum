@@ -26,7 +26,7 @@ module.exports = {
     rules: [
       {
         test: /\.[jt]sx?$/,
-        exclude: /node_modules\/(?!(react-native-svg)\/).*/,
+        exclude: /node_modules\/(?!(react-native-svg|firebase|@firebase)\/).*/,
         use: {
           loader: 'babel-loader',
           options: {

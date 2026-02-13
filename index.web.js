@@ -1,6 +1,10 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
+import {initAnalytics} from './src/firebase';
 import App from './App';
+
+// Initialize Firebase Analytics
+initAnalytics();
 
 var rootEl = document.getElementById('root');
 
