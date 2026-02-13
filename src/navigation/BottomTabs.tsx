@@ -1,21 +1,36 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {View, StyleSheet} from 'react-native';
-import {FeedScreen, PortfolioScreen} from '@screens';
+import {FeedScreen, PortfolioScreen, ClubsScreen} from '@screens';
 import {Colors, Typography} from '@theme';
 
+// Deals icon — document with folded corner
 const DealsIcon = ({focused}: {focused: boolean}) => (
   <View style={[iconStyles.box, focused && iconStyles.boxFocused]}>
-    <View style={iconStyles.innerSquare} />
+    <View style={iconStyles.docBody}>
+      <View style={iconStyles.docFold} />
+      <View style={iconStyles.docLine} />
+      <View style={[iconStyles.docLine, {width: 10}]} />
+    </View>
   </View>
 );
 
+// Portfolio icon — bar chart
 const PortfolioIcon = ({focused}: {focused: boolean}) => (
   <View style={[iconStyles.box, focused && iconStyles.boxFocused]}>
     <View style={iconStyles.barChart}>
       <View style={[iconStyles.bar, {height: 8}]} />
       <View style={[iconStyles.bar, {height: 14}]} />
       <View style={[iconStyles.bar, {height: 11}]} />
+    </View>
+  </View>
+);
+
+// Clubs icon — pool with circle tube
+const ClubsIcon = ({focused}: {focused: boolean}) => (
+  <View style={[iconStyles.box, focused && iconStyles.boxFocused]}>
+    <View style={iconStyles.poolOuter}>
+      <View style={iconStyles.poolInner} />
     </View>
   </View>
 );
@@ -31,12 +46,33 @@ const iconStyles = StyleSheet.create({
   boxFocused: {
     opacity: 1,
   },
-  innerSquare: {
-    width: 18,
-    height: 18,
+  // Deals — document icon
+  docBody: {
+    width: 16,
+    height: 20,
     borderWidth: 2.5,
     borderColor: Colors.primaryBlack,
+    paddingTop: 7,
+    paddingLeft: 2,
+    gap: 3,
   },
+  docFold: {
+    position: 'absolute',
+    top: -0.5,
+    right: -0.5,
+    width: 6,
+    height: 6,
+    borderBottomWidth: 2.5,
+    borderLeftWidth: 2.5,
+    borderColor: Colors.primaryBlack,
+    backgroundColor: Colors.backgroundPrimary,
+  },
+  docLine: {
+    width: 7,
+    height: 2,
+    backgroundColor: Colors.primaryBlack,
+  },
+  // Portfolio — bar chart
   barChart: {
     flexDirection: 'row',
     alignItems: 'flex-end',
@@ -46,10 +82,28 @@ const iconStyles = StyleSheet.create({
     width: 5,
     backgroundColor: Colors.primaryBlack,
   },
+  // Clubs — pool with tube
+  poolOuter: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    borderWidth: 2.5,
+    borderColor: Colors.primaryBlack,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  poolInner: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: Colors.primaryBlack,
+  },
 });
 
 export type BottomTabParamList = {
   Feed: undefined;
+  Clubs: undefined;
   Portfolio: undefined;
 };
 
@@ -81,6 +135,14 @@ const BottomTabs: React.FC = () => {
         options={{
           tabBarLabel: 'DEALS',
           tabBarIcon: ({focused}) => <DealsIcon focused={focused} />,
+        }}
+      />
+      <Tab.Screen
+        name="Clubs"
+        component={ClubsScreen}
+        options={{
+          tabBarLabel: 'CLUBS',
+          tabBarIcon: ({focused}) => <ClubsIcon focused={focused} />,
         }}
       />
       <Tab.Screen

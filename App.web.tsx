@@ -2,18 +2,34 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
 import {FeedScreen} from './src/screens';
 import {PortfolioScreen} from './src/screens';
+import {ClubsScreen} from './src/screens';
 import {Colors, Typography} from './src/theme';
 
-type TabKey = 'deals' | 'portfolio';
+type TabKey = 'deals' | 'clubs' | 'portfolio';
 
-// --- Geometric tab icons (matching native BottomTabs) ---
+// --- Geometric tab icons ---
 
+// Deals icon — document with folded corner
 const DealsIcon = ({focused}: {focused: boolean}) => (
   <View style={[iconStyles.box, focused && iconStyles.boxFocused]}>
-    <View style={iconStyles.innerSquare} />
+    <View style={iconStyles.docBody}>
+      <View style={iconStyles.docFold} />
+      <View style={iconStyles.docLine} />
+      <View style={[iconStyles.docLine, {width: 10}]} />
+    </View>
   </View>
 );
 
+// Clubs icon — pool with circle tube
+const ClubsIcon = ({focused}: {focused: boolean}) => (
+  <View style={[iconStyles.box, focused && iconStyles.boxFocused]}>
+    <View style={iconStyles.poolOuter}>
+      <View style={iconStyles.poolInner} />
+    </View>
+  </View>
+);
+
+// Portfolio icon — bar chart
 const PortfolioIcon = ({focused}: {focused: boolean}) => (
   <View style={[iconStyles.box, focused && iconStyles.boxFocused]}>
     <View style={iconStyles.barChart}>
@@ -35,12 +51,50 @@ const iconStyles = StyleSheet.create({
   boxFocused: {
     opacity: 1,
   },
-  innerSquare: {
-    width: 18,
-    height: 18,
+  // Deals — document icon
+  docBody: {
+    width: 16,
+    height: 20,
     borderWidth: 2.5,
     borderColor: Colors.primaryBlack,
+    paddingTop: 7,
+    paddingLeft: 2,
+    gap: 3,
   },
+  docFold: {
+    position: 'absolute',
+    top: -0.5,
+    right: -0.5,
+    width: 6,
+    height: 6,
+    borderBottomWidth: 2.5,
+    borderLeftWidth: 2.5,
+    borderColor: Colors.primaryBlack,
+    backgroundColor: Colors.backgroundPrimary,
+  },
+  docLine: {
+    width: 7,
+    height: 2,
+    backgroundColor: Colors.primaryBlack,
+  },
+  // Clubs — pool with tube
+  poolOuter: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    borderWidth: 2.5,
+    borderColor: Colors.primaryBlack,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  poolInner: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: Colors.primaryBlack,
+  },
+  // Portfolio — bar chart
   barChart: {
     flexDirection: 'row',
     alignItems: 'flex-end',
@@ -110,48 +164,55 @@ const errorStyles = StyleSheet.create({
   },
 });
 
+// --- Tab config ---
+
+const TABS: {key: TabKey; label: string; Icon: React.FC<{focused: boolean}>}[] = [
+  {key: 'deals', label: 'DEALS', Icon: DealsIcon},
+  {key: 'clubs', label: 'CLUBS', Icon: ClubsIcon},
+  {key: 'portfolio', label: 'PORTFOLIO', Icon: PortfolioIcon},
+];
+
 // --- Main App ---
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('deals');
 
+  const renderScreen = () => {
+    switch (activeTab) {
+      case 'deals':
+        return <FeedScreen />;
+      case 'clubs':
+        return <ClubsScreen />;
+      case 'portfolio':
+        return <PortfolioScreen />;
+    }
+  };
+
   return (
     <View style={styles.root}>
       <ErrorBoundary>
         <View style={styles.screenContainer}>
-          {activeTab === 'deals' ? <FeedScreen /> : <PortfolioScreen />}
+          {renderScreen()}
         </View>
 
         <View style={styles.tabBar}>
-          <Pressable
-            style={styles.tabItem}
-            onPress={() => setActiveTab('deals')}>
-            <DealsIcon focused={activeTab === 'deals'} />
-            <Text
-              style={[
-                styles.tabLabel,
-                activeTab === 'deals'
-                  ? styles.tabLabelActive
-                  : styles.tabLabelInactive,
-              ]}>
-              DEALS
-            </Text>
-          </Pressable>
-
-          <Pressable
-            style={styles.tabItem}
-            onPress={() => setActiveTab('portfolio')}>
-            <PortfolioIcon focused={activeTab === 'portfolio'} />
-            <Text
-              style={[
-                styles.tabLabel,
-                activeTab === 'portfolio'
-                  ? styles.tabLabelActive
-                  : styles.tabLabelInactive,
-              ]}>
-              PORTFOLIO
-            </Text>
-          </Pressable>
+          {TABS.map(({key, label, Icon}) => (
+            <Pressable
+              key={key}
+              style={styles.tabItem}
+              onPress={() => setActiveTab(key)}>
+              <Icon focused={activeTab === key} />
+              <Text
+                style={[
+                  styles.tabLabel,
+                  activeTab === key
+                    ? styles.tabLabelActive
+                    : styles.tabLabelInactive,
+                ]}>
+                {label}
+              </Text>
+            </Pressable>
+          ))}
         </View>
       </ErrorBoundary>
     </View>
