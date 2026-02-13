@@ -18,10 +18,9 @@ export const Typography = {
   displayLarge: {
     fontFamily: fontFamilyBold,
     fontSize: 42,
-    fontWeight: '800',
+    fontWeight: '700',
     letterSpacing: -1,
     lineHeight: 48,
-    textTransform: 'uppercase',
   } as TextStyle,
 
   displayMedium: {
@@ -35,28 +34,25 @@ export const Typography = {
   headerLarge: {
     fontFamily: fontFamilyBold,
     fontSize: 24,
-    fontWeight: '800',
-    letterSpacing: 1.5,
+    fontWeight: '700',
+    letterSpacing: 0.3,
     lineHeight: 30,
-    textTransform: 'uppercase',
   } as TextStyle,
 
   headerMedium: {
     fontFamily: fontFamilyBold,
     fontSize: 18,
-    fontWeight: '800',
-    letterSpacing: 1.2,
+    fontWeight: '700',
+    letterSpacing: 0.2,
     lineHeight: 24,
-    textTransform: 'uppercase',
   } as TextStyle,
 
   headerSmall: {
     fontFamily: fontFamilyBold,
     fontSize: 14,
-    fontWeight: '700',
-    letterSpacing: 1,
+    fontWeight: '600',
+    letterSpacing: 0.3,
     lineHeight: 20,
-    textTransform: 'uppercase',
   } as TextStyle,
 
   bodyLarge: {
@@ -83,9 +79,8 @@ export const Typography = {
   buttonLabel: {
     fontFamily: fontFamilyBold,
     fontSize: 14,
-    fontWeight: '800',
-    letterSpacing: 2,
-    textTransform: 'uppercase',
+    fontWeight: '600',
+    letterSpacing: 0.5,
   } as TextStyle,
 
   numberLarge: {

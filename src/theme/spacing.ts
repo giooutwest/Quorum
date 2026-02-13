@@ -11,7 +11,11 @@ export const Spacing = {
 
 export const BorderRadius = {
   none: 0,
-  subtle: 2,
+  subtle: 4,
+  sm: 8,
+  md: 12,
+  lg: 16,
+  full: 9999,
 } as const;
 
 export const Elevation = {
@@ -23,10 +27,10 @@ export const Elevation = {
     shadowRadius: 0,
   },
   premium: {
-    elevation: 5,
+    elevation: 3,
     shadowColor: '#000000',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.12,
-    shadowRadius: 12,
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
   },
 } as const;

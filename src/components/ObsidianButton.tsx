@@ -41,12 +41,12 @@ const ObsidianButton: React.FC<ObsidianButtonProps> = ({
 const styles = StyleSheet.create({
   button: {
     backgroundColor: Colors.primaryBlack,
-    paddingVertical: Spacing.md,
+    paddingVertical: 12,
     paddingHorizontal: Spacing.lg,
-    borderRadius: 0,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 52,
+    minHeight: 46,
   },
   buttonDisabled: {
     backgroundColor: Colors.textTertiary,

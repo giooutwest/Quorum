@@ -34,15 +34,15 @@ const DealCard: React.FC<DealCardProps> = ({deal, onCommit}) => {
 
       <View style={styles.metricsRow}>
         <View style={styles.metric}>
-          <Text style={styles.metricLabel}>RAISE</Text>
+          <Text style={styles.metricLabel}>Goal</Text>
           <Text style={styles.metricValue}>{formatCurrency(deal.amount)}</Text>
         </View>
         <View style={styles.metric}>
-          <Text style={styles.metricLabel}>TARGET</Text>
+          <Text style={styles.metricLabel}>Returns</Text>
           <Text style={styles.metricValue}>{deal.targetReturn}</Text>
         </View>
         <View style={styles.metric}>
-          <Text style={styles.metricLabel}>MINIMUM</Text>
+          <Text style={styles.metricLabel}>Min. invest</Text>
           <Text style={styles.metricValue}>
             {formatCurrency(deal.minimumCommitment)}
           </Text>
@@ -51,12 +51,12 @@ const DealCard: React.FC<DealCardProps> = ({deal, onCommit}) => {
 
       {deal.status === 'closing' && (
         <View style={styles.statusBar}>
-          <Text style={styles.statusText}>CLOSING SOON</Text>
+          <Text style={styles.statusText}>Closing soon</Text>
         </View>
       )}
 
       <ObsidianButton
-        title="COMMIT"
+        title="Invest"
         onPress={() => onCommit(deal.id)}
         disabled={deal.status === 'closed' || deal.status === 'funded'}
         style={styles.commitButton}
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   dealType: {
     ...Typography.bodySmall,
     color: Colors.textTertiary,
-    letterSpacing: 2,
+    letterSpacing: 1,
     marginBottom: Spacing.xs,
   },
   name: {
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   metricLabel: {
     ...Typography.bodySmall,
     color: Colors.textTertiary,
-    letterSpacing: 1.5,
+    letterSpacing: 0.5,
     marginBottom: Spacing.xxs,
   },
   metricValue: {
@@ -110,12 +110,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.sm,
     alignSelf: 'flex-start',
     marginBottom: Spacing.md,
+    borderRadius: 4,
   },
   statusText: {
     ...Typography.bodySmall,
     color: Colors.textOnPrimary,
-    letterSpacing: 2,
-    fontWeight: '700',
+    letterSpacing: 0.5,
+    fontWeight: '600',
   },
   commitButton: {
     marginTop: Spacing.sm,

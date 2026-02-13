@@ -12,7 +12,7 @@ const PortfolioScreen: React.FC = () => {
       <PortfolioHeader holdings={mockHoldings} />
       <PortfolioChart data={mockPerformanceData} />
       <View style={styles.holdingsHeader}>
-        <Text style={styles.holdingsTitle}>HOLDINGS</Text>
+        <Text style={styles.holdingsTitle}>Your Investments</Text>
       </View>
     </View>
   );
@@ -20,7 +20,7 @@ const PortfolioScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.headerBar}>
-        <Text style={styles.headerTitle}>PORTFOLIO</Text>
+        <Text style={styles.headerTitle}>Portfolio</Text>
       </View>
       <FlatList
         data={mockHoldings}
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   headerBar: {
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: Colors.borderHeavy,
   },
   headerTitle: {
@@ -52,13 +52,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.lg,
     paddingTop: Spacing.lg,
     paddingBottom: Spacing.sm,
-    borderTopWidth: 2,
+    borderTopWidth: 1,
     borderTopColor: Colors.borderHeavy,
   },
   holdingsTitle: {
     ...Typography.headerSmall,
     color: Colors.textPrimary,
-    letterSpacing: 3,
+    letterSpacing: 0.3,
   },
 });
 

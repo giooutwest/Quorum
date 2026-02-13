@@ -13,7 +13,7 @@ const FeedScreen: React.FC = () => {
     if (Platform.OS === 'web') {
       (globalThis as any).alert(message);
     } else {
-      Alert.alert('COMMITMENT', message);
+      Alert.alert('Investing', message);
     }
   }, []);
 
@@ -27,7 +27,7 @@ const FeedScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.headerBar}>
-        <Text style={styles.headerTitle}>DEAL FLOW</Text>
+        <Text style={styles.headerTitle}>Opportunities</Text>
       </View>
       <FlatList
         data={mockDeals}
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   headerBar: {
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: Colors.borderHeavy,
   },
   headerTitle: {

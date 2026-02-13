@@ -64,6 +64,7 @@ const msgStyles = StyleSheet.create({
     padding: Spacing.md,
     borderWidth: 1,
     borderColor: Colors.borderLight,
+    borderRadius: 8,
   },
   bubbleHeader: {
     flexDirection: 'row',
@@ -76,7 +77,6 @@ const msgStyles = StyleSheet.create({
     fontWeight: '700',
     color: Colors.textPrimary,
     letterSpacing: 0.5,
-    textTransform: 'uppercase',
   },
   time: {
     ...Typography.bodySmall,
@@ -98,20 +98,20 @@ const ClubChatScreen: React.FC<ClubChatScreenProps> = ({club, onBack}) => {
     <View>
       {/* Collective Investment Card */}
       <MarbleCard premium>
-        <Text style={styles.dealLabel}>COLLECTIVE INVESTMENT</Text>
+        <Text style={styles.dealLabel}>Pool Investment</Text>
         <Text style={styles.dealName}>{deal.name}</Text>
 
         <View style={styles.metricsRow}>
           <View style={styles.metric}>
-            <Text style={styles.metricLabel}>POOL</Text>
+            <Text style={styles.metricLabel}>Goal</Text>
             <Text style={styles.metricValue}>{formatCurrency(deal.totalPool)}</Text>
           </View>
           <View style={styles.metric}>
-            <Text style={styles.metricLabel}>COMMITTED</Text>
+            <Text style={styles.metricLabel}>Pooled</Text>
             <Text style={styles.metricValue}>{formatCurrency(deal.committed)}</Text>
           </View>
           <View style={styles.metric}>
-            <Text style={styles.metricLabel}>TARGET</Text>
+            <Text style={styles.metricLabel}>Returns</Text>
             <Text style={styles.metricValue}>{deal.targetReturn}</Text>
           </View>
         </View>
@@ -122,10 +122,10 @@ const ClubChatScreen: React.FC<ClubChatScreenProps> = ({club, onBack}) => {
           </View>
           <View style={styles.progressLabels}>
             <Text style={styles.progressText}>
-              {Math.round(progress * 100)}% FUNDED
+              {Math.round(progress * 100)}% funded
             </Text>
             <Text style={styles.progressText}>
-              {deal.memberCount} MEMBERS
+              {deal.memberCount} friends
             </Text>
           </View>
         </View>
@@ -133,7 +133,7 @@ const ClubChatScreen: React.FC<ClubChatScreenProps> = ({club, onBack}) => {
         {isFunded && (
           <View style={styles.fundedBadge}>
             <Text style={styles.fundedText}>
-              {deal.status === 'active' ? 'ACTIVE INVESTMENT' : 'FULLY FUNDED'}
+              {deal.status === 'active' ? 'Active' : 'Fully funded'}
             </Text>
           </View>
         )}
@@ -141,7 +141,7 @@ const ClubChatScreen: React.FC<ClubChatScreenProps> = ({club, onBack}) => {
 
       {/* Members strip */}
       <View style={styles.membersStrip}>
-        <Text style={styles.membersLabel}>MEMBERS</Text>
+        <Text style={styles.membersLabel}>Friends</Text>
         <View style={styles.membersRow}>
           {club.members.map(member => (
             <View key={member.id} style={styles.memberChip}>
@@ -156,7 +156,7 @@ const ClubChatScreen: React.FC<ClubChatScreenProps> = ({club, onBack}) => {
 
       {/* Chat header */}
       <View style={styles.chatHeader}>
-        <Text style={styles.chatHeaderText}>DISCUSSION</Text>
+        <Text style={styles.chatHeaderText}>Chat</Text>
       </View>
     </View>
   );
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: Colors.borderHeavy,
   },
   backButton: {
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
   dealLabel: {
     ...Typography.bodySmall,
     color: Colors.textTertiary,
-    letterSpacing: 2,
+    letterSpacing: 0.5,
     marginBottom: Spacing.xs,
   },
   dealName: {
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
   metricLabel: {
     ...Typography.bodySmall,
     color: Colors.textTertiary,
-    letterSpacing: 1.5,
+    letterSpacing: 0.5,
     marginBottom: Spacing.xxs,
   },
   metricValue: {
@@ -289,10 +289,12 @@ const styles = StyleSheet.create({
   progressBarBg: {
     height: 6,
     backgroundColor: Colors.borderLight,
+    borderRadius: 9999,
   },
   progressBarFill: {
     height: 6,
     backgroundColor: Colors.primaryBlack,
+    borderRadius: 9999,
   },
   progressLabels: {
     flexDirection: 'row',
@@ -302,7 +304,7 @@ const styles = StyleSheet.create({
   progressText: {
     ...Typography.bodySmall,
     color: Colors.textTertiary,
-    letterSpacing: 1,
+    letterSpacing: 0,
     fontWeight: '600',
   },
   fundedBadge: {
@@ -311,12 +313,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.md,
     alignSelf: 'flex-start',
     marginTop: Spacing.sm,
+    borderRadius: 4,
   },
   fundedText: {
     ...Typography.bodySmall,
     color: Colors.textOnPrimary,
     fontWeight: '700',
-    letterSpacing: 2,
+    letterSpacing: 0.5,
   },
   membersStrip: {
     paddingHorizontal: Spacing.lg,
@@ -327,8 +330,8 @@ const styles = StyleSheet.create({
   membersLabel: {
     ...Typography.bodySmall,
     color: Colors.textTertiary,
-    letterSpacing: 2,
-    fontWeight: '700',
+    letterSpacing: 0.3,
+    fontWeight: '600',
     marginBottom: Spacing.sm,
   },
   membersRow: {
@@ -369,17 +372,18 @@ const styles = StyleSheet.create({
   chatHeaderText: {
     ...Typography.headerSmall,
     color: Colors.textPrimary,
-    letterSpacing: 3,
+    letterSpacing: 0.3,
   },
   inputBar: {
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
-    borderTopWidth: 2,
+    borderTopWidth: 1,
     borderTopColor: Colors.borderHeavy,
   },
   inputField: {
-    borderWidth: 2,
-    borderColor: Colors.primaryBlack,
+    borderWidth: 1,
+    borderColor: Colors.borderLight,
+    borderRadius: 8,
     paddingVertical: Spacing.md,
     paddingHorizontal: Spacing.lg,
   },

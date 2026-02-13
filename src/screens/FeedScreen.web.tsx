@@ -22,7 +22,7 @@ const FeedScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headerBar}>
-        <Text style={styles.headerTitle}>DEAL FLOW</Text>
+        <Text style={styles.headerTitle}>Opportunities</Text>
       </View>
       <FlatList
         data={mockDeals}
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   headerBar: {
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: Colors.borderHeavy,
   },
   headerTitle: {

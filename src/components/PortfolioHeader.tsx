@@ -26,7 +26,7 @@ const PortfolioHeader: React.FC<PortfolioHeaderProps> = ({holdings}) => {
 
   return (
     <MarbleCard premium>
-      <Text style={styles.label}>TOTAL NET WORTH</Text>
+      <Text style={styles.label}>Total Value</Text>
       <Text style={styles.totalValue}>
         {formatLargeCurrency(totalValue)}
       </Text>
@@ -41,7 +41,7 @@ const PortfolioHeader: React.FC<PortfolioHeaderProps> = ({holdings}) => {
           {isPositive ? '+' : ''}
           {totalGainPercent.toFixed(1)}%)
         </Text>
-        <Text style={styles.periodLabel}>ALL TIME</Text>
+        <Text style={styles.periodLabel}>all time</Text>
       </View>
     </MarbleCard>
   );
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   label: {
     ...Typography.headerSmall,
     color: Colors.textTertiary,
-    letterSpacing: 3,
+    letterSpacing: 0.5,
     marginBottom: Spacing.sm,
   },
   totalValue: {
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   periodLabel: {
     ...Typography.bodySmall,
     color: Colors.textTertiary,
-    letterSpacing: 1.5,
+    letterSpacing: 0,
   },
 });
 

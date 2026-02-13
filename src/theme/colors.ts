@@ -25,7 +25,7 @@ export const Colors = {
   negative: '#8B1A1A',
 
   // Borders
-  borderHeavy: '#000000',
+  borderHeavy: '#222222',
   borderLight: '#E0E0E0',
 
   transparent: 'transparent',

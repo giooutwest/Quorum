@@ -1,6 +1,6 @@
 import React, {useState, useCallback} from 'react';
 import {View, FlatList, Text, StyleSheet, Pressable} from 'react-native';
-import {mockClubs} from '@data';
+import {mockPools} from '@data';
 import {Colors, Typography, Spacing} from '@theme';
 import {Club} from '@app-types';
 import ClubChatScreen from './ClubChatScreen';
@@ -19,13 +19,13 @@ const formatCurrency = (cents: number): string => {
 const statusLabel = (status: string) => {
   switch (status) {
     case 'raising':
-      return 'RAISING';
+      return 'Raising';
     case 'funded':
-      return 'FUNDED';
+      return 'Funded';
     case 'active':
-      return 'ACTIVE';
+      return 'Active';
     default:
-      return status.toUpperCase();
+      return status;
   }
 };
 
@@ -57,7 +57,7 @@ const ClubRow: React.FC<{club: Club; onPress: () => void}> = ({club, onPress}) =
           <Text style={styles.poolAmount}>
             {formatCurrency(club.deal.committed)} / {formatCurrency(club.deal.totalPool)}
           </Text>
-          <Text style={styles.memberCount}>{club.members.length} MEMBERS</Text>
+          <Text style={styles.memberCount}>{club.members.length} friends</Text>
         </View>
         <View style={styles.progressBarBg}>
           <View style={[styles.progressBarFill, {width: `${Math.min(progress * 100, 100)}%` as any}]} />
@@ -81,10 +81,10 @@ const ClubsScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headerBar}>
-        <Text style={styles.headerTitle}>CLUBS</Text>
+        <Text style={styles.headerTitle}>Pools</Text>
       </View>
       <FlatList
-        data={mockClubs}
+        data={mockPools}
         renderItem={({item}: {item: Club}) => (
           <ClubRow club={item} onPress={() => setSelectedClub(item)} />
         )}
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   headerBar: {
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: Colors.borderHeavy,
   },
   headerTitle: {
@@ -179,6 +179,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     paddingHorizontal: 6,
     paddingVertical: 2,
+    borderRadius: 4,
   },
   statusRaising: {
     backgroundColor: Colors.primaryBlack,
@@ -201,12 +202,12 @@ const styles = StyleSheet.create({
   progressBarBg: {
     height: 3,
     backgroundColor: Colors.borderLight,
-    borderRadius: 0,
+    borderRadius: 9999,
   },
   progressBarFill: {
     height: 3,
     backgroundColor: Colors.primaryBlack,
-    borderRadius: 0,
+    borderRadius: 9999,
   },
 });
 

@@ -27,7 +27,7 @@ const HoldingRow: React.FC<HoldingRowProps> = ({holding}) => {
           {holding.dealName}
         </Text>
         <Text style={styles.committed}>
-          {formatDollars(holding.committedAmount)} COMMITTED
+          {formatDollars(holding.committedAmount)} invested
         </Text>
       </View>
       <View style={styles.right}>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   committed: {
     ...Typography.bodySmall,
     color: Colors.textTertiary,
-    letterSpacing: 1,
+    letterSpacing: 0,
   },
   right: {
     alignItems: 'flex-end',
