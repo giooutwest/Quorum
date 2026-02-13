@@ -5,7 +5,7 @@ import {PortfolioScreen} from './src/screens';
 import {ClubsScreen} from './src/screens';
 import {Colors, Typography} from './src/theme';
 
-type TabKey = 'deals' | 'clubs' | 'portfolio';
+type TabKey = 'deals' | 'pools' | 'portfolio';
 
 // --- Geometric tab icons ---
 
@@ -20,11 +20,19 @@ const DealsIcon = ({focused}: {focused: boolean}) => (
   </View>
 );
 
-// Clubs icon — pool with circle tube
-const ClubsIcon = ({focused}: {focused: boolean}) => (
+// Pools icon — diagonal pool outline with ladder and flamingo float
+const PoolsIcon = ({focused}: {focused: boolean}) => (
   <View style={[iconStyles.box, focused && iconStyles.boxFocused]}>
-    <View style={iconStyles.poolOuter}>
-      <View style={iconStyles.poolInner} />
+    <View style={iconStyles.poolContainer}>
+      <View style={iconStyles.poolShape}>
+        <View style={iconStyles.ladderLeft} />
+        <View style={iconStyles.ladderRight} />
+        <View style={iconStyles.ladderRung1} />
+        <View style={iconStyles.ladderRung2} />
+        <View style={iconStyles.floatBody}>
+          <View style={iconStyles.floatShades} />
+        </View>
+      </View>
     </View>
   </View>
 );
@@ -55,7 +63,7 @@ const iconStyles = StyleSheet.create({
   docBody: {
     width: 16,
     height: 20,
-    borderWidth: 2.5,
+    borderWidth: 2,
     borderColor: Colors.primaryBlack,
     paddingTop: 7,
     paddingLeft: 2,
@@ -67,8 +75,8 @@ const iconStyles = StyleSheet.create({
     right: -0.5,
     width: 6,
     height: 6,
-    borderBottomWidth: 2.5,
-    borderLeftWidth: 2.5,
+    borderBottomWidth: 2,
+    borderLeftWidth: 2,
     borderColor: Colors.primaryBlack,
     backgroundColor: Colors.backgroundPrimary,
   },
@@ -77,22 +85,72 @@ const iconStyles = StyleSheet.create({
     height: 2,
     backgroundColor: Colors.primaryBlack,
   },
-  // Clubs — pool with tube
-  poolOuter: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
-    borderWidth: 2.5,
-    borderColor: Colors.primaryBlack,
+  // Pools — diagonal pool with ladder and flamingo
+  poolContainer: {
+    width: 24,
+    height: 24,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  poolInner: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    borderWidth: 2,
+  poolShape: {
+    width: 22,
+    height: 14,
+    borderWidth: 1.5,
     borderColor: Colors.primaryBlack,
+    borderRadius: 3,
+    transform: [{rotate: '-12deg'}],
+  },
+  ladderLeft: {
+    position: 'absolute',
+    top: -4,
+    left: 2,
+    width: 1.5,
+    height: 8,
+    backgroundColor: Colors.primaryBlack,
+  },
+  ladderRight: {
+    position: 'absolute',
+    top: -4,
+    left: 6,
+    width: 1.5,
+    height: 8,
+    backgroundColor: Colors.primaryBlack,
+  },
+  ladderRung1: {
+    position: 'absolute',
+    top: -2,
+    left: 2,
+    width: 5.5,
+    height: 1.5,
+    backgroundColor: Colors.primaryBlack,
+  },
+  ladderRung2: {
+    position: 'absolute',
+    top: 1,
+    left: 2,
+    width: 5.5,
+    height: 1.5,
+    backgroundColor: Colors.primaryBlack,
+  },
+  floatBody: {
+    position: 'absolute',
+    top: 2,
+    right: 3,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    borderWidth: 1.5,
+    borderColor: '#E8788A',
+    backgroundColor: 'transparent',
+  },
+  floatShades: {
+    position: 'absolute',
+    top: 2,
+    left: 1,
+    width: 5,
+    height: 1.5,
+    backgroundColor: Colors.primaryBlack,
+    borderRadius: 1,
   },
   // Portfolio — bar chart
   barChart: {
@@ -167,9 +225,9 @@ const errorStyles = StyleSheet.create({
 // --- Tab config ---
 
 const TABS: {key: TabKey; label: string; Icon: React.FC<{focused: boolean}>}[] = [
-  {key: 'deals', label: 'DEALS', Icon: DealsIcon},
-  {key: 'clubs', label: 'CLUBS', Icon: ClubsIcon},
-  {key: 'portfolio', label: 'PORTFOLIO', Icon: PortfolioIcon},
+  {key: 'deals', label: 'Deals', Icon: DealsIcon},
+  {key: 'pools', label: 'Pools', Icon: PoolsIcon},
+  {key: 'portfolio', label: 'Portfolio', Icon: PortfolioIcon},
 ];
 
 // --- Main App ---
@@ -181,7 +239,7 @@ const App: React.FC = () => {
     switch (activeTab) {
       case 'deals':
         return <FeedScreen />;
-      case 'clubs':
+      case 'pools':
         return <ClubsScreen />;
       case 'portfolio':
         return <PortfolioScreen />;
@@ -233,7 +291,7 @@ const styles = StyleSheet.create({
   tabBar: {
     flexDirection: 'row',
     backgroundColor: Colors.backgroundPrimary,
-    borderTopWidth: 2,
+    borderTopWidth: 1,
     borderTopColor: Colors.borderHeavy,
     height: 80,
     paddingTop: 8,
@@ -247,7 +305,7 @@ const styles = StyleSheet.create({
   tabLabel: {
     ...Typography.headerSmall,
     fontSize: 10,
-    letterSpacing: 2,
+    letterSpacing: 0.5,
   },
   tabLabelActive: {
     color: Colors.primaryBlack,
