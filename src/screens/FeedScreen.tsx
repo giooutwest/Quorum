@@ -11,7 +11,7 @@ const FeedScreen: React.FC = () => {
     const deal = mockDeals.find(d => d.id === dealId);
     const message = `You are committing to ${deal?.name || 'this deal'}.`;
     if (Platform.OS === 'web') {
-      window.alert(message);
+      (globalThis as any).alert(message);
     } else {
       Alert.alert('COMMITMENT', message);
     }

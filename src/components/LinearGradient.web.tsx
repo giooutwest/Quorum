@@ -16,7 +16,8 @@ const LinearGradient: React.FC<LinearGradientProps> = ({
   style,
   children,
 }) => {
-  const angle = Math.atan2(end.y - start.y, end.x - start.x) * (180 / Math.PI) + 90;
+  const angle =
+    Math.atan2(end.y - start.y, end.x - start.x) * (180 / Math.PI) + 90;
 
   const stops = colors
     .map((color, i) => {
@@ -27,14 +28,14 @@ const LinearGradient: React.FC<LinearGradientProps> = ({
 
   const backgroundImage = `linear-gradient(${angle}deg, ${stops})`;
 
+  const flatStyle = style
+    ? Array.isArray(style)
+      ? style.filter(Boolean)
+      : [style]
+    : [];
+
   return (
-    <View
-      style={[
-        ...(Array.isArray(style) ? style : [style]),
-        {backgroundImage} as any,
-      ]}>
-      {children}
-    </View>
+    <View style={[...flatStyle, {backgroundImage} as any]}>{children}</View>
   );
 };
 
