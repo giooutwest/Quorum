@@ -1,39 +1,32 @@
-import {AppRegistry} from 'react-native';
+import React from 'react';
+import {createRoot} from 'react-dom/client';
 import App from './App';
-import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => App);
-
-try {
-  AppRegistry.runApplication(appName, {
-    rootTag: document.getElementById('root'),
-  });
-} catch (error) {
-  const root = document.getElementById('root');
-  root.innerHTML =
-    '<pre style="color:red;padding:20px;font-size:14px;">' +
-    error.message +
-    '\n\n' +
-    error.stack +
-    '</pre>';
-}
+var rootEl = document.getElementById('root');
 
 window.addEventListener('error', function (event) {
-  const root = document.getElementById('root');
-  root.innerHTML =
+  rootEl.innerHTML =
     '<pre style="color:red;padding:20px;font-size:14px;">Runtime Error:\n' +
     event.message +
-    '\n\nFile: ' +
-    event.filename +
-    ':' +
-    event.lineno +
+    '\nat ' + event.filename + ':' + event.lineno +
     '</pre>';
 });
 
 window.addEventListener('unhandledrejection', function (event) {
-  const root = document.getElementById('root');
-  root.innerHTML =
+  rootEl.innerHTML =
     '<pre style="color:red;padding:20px;font-size:14px;">Unhandled Promise:\n' +
-    event.reason +
+    String(event.reason) +
     '</pre>';
 });
+
+try {
+  var reactRoot = createRoot(rootEl);
+  reactRoot.render(
+    React.createElement(App)
+  );
+} catch (error) {
+  rootEl.innerHTML =
+    '<pre style="color:red;padding:20px;font-size:14px;">Startup Error:\n' +
+    error.message + '\n\n' + error.stack +
+    '</pre>';
+}
