@@ -53,8 +53,7 @@ const FeedScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headerBar}>
-        <OliveLogo size={22} />
-        <Text style={styles.headerTitle}>Opportunities</Text>
+        <OliveLogo size={24} />
       </View>
       <FlatList
         data={mockDeals}
@@ -142,10 +141,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundPrimary,
   },
   headerBar: {
-    flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
     borderBottomWidth: 1,
     borderBottomColor: Colors.borderHeavy,

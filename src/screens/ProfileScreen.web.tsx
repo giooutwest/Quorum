@@ -9,8 +9,7 @@ const ProfileScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headerBar}>
-        <OliveLogo size={22} />
-        <Text style={styles.headerTitle}>You</Text>
+        <OliveLogo size={24} />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Profile card */}
@@ -103,10 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundPrimary,
   },
   headerBar: {
-    flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
     borderBottomWidth: 1,
     borderBottomColor: Colors.borderHeavy,

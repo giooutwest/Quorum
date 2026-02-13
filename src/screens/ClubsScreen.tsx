@@ -83,8 +83,7 @@ const ClubsScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.headerBar}>
-        <OliveLogo size={22} />
-        <Text style={styles.headerTitle}>Pools</Text>
+        <OliveLogo size={24} />
       </View>
       <FlatList
         data={mockPools}
@@ -104,10 +103,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundPrimary,
   },
   headerBar: {
-    flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
     borderBottomWidth: 1,
     borderBottomColor: Colors.borderHeavy,
