@@ -1,0 +1,58 @@
+import React from 'react';
+import {View, ViewStyle, StyleSheet} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import {Colors, Spacing, Elevation} from '@theme';
+
+interface MarbleCardProps {
+  children: React.ReactNode;
+  premium?: boolean;
+  style?: ViewStyle;
+}
+
+const MarbleCard: React.FC<MarbleCardProps> = ({
+  children,
+  premium = false,
+  style,
+}) => {
+  if (premium) {
+    return (
+      <LinearGradient
+        colors={[
+          Colors.marbleLight,
+          Colors.marbleMid,
+          Colors.marbleVein,
+          Colors.marbleMid,
+          Colors.marbleLight,
+        ]}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 1}}
+        style={[styles.card, styles.premiumCard, style]}>
+        {children}
+      </LinearGradient>
+    );
+  }
+
+  return (
+    <View style={[styles.card, styles.standardCard, style]}>{children}</View>
+  );
+};
+
+const styles = StyleSheet.create({
+  card: {
+    padding: Spacing.lg,
+    marginHorizontal: Spacing.md,
+    marginVertical: Spacing.sm,
+    borderRadius: 0,
+  },
+  standardCard: {
+    backgroundColor: Colors.backgroundPrimary,
+    borderWidth: 2,
+    borderColor: Colors.borderHeavy,
+  },
+  premiumCard: {
+    ...Elevation.premium,
+    borderWidth: 0,
+  },
+});
+
+export default MarbleCard;
