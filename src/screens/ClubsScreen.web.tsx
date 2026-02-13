@@ -37,8 +37,8 @@ const ClubRow: React.FC<{club: Club; onPress: () => void}> = ({club, onPress}) =
   return (
     <Pressable style={styles.clubRow} onPress={onPress}>
       <View style={styles.clubAvatar}>
-        <View style={styles.poolOuter}>
-          <View style={styles.poolInner} />
+        <View style={styles.avatarPool}>
+          <View style={styles.avatarFloat} />
         </View>
       </View>
       <View style={styles.clubInfo}>
@@ -126,21 +126,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: Spacing.md,
   },
-  poolOuter: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    borderWidth: 2.5,
-    borderColor: Colors.textOnPrimary,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  poolInner: {
-    width: 12,
+  avatarPool: {
+    width: 20,
     height: 12,
-    borderRadius: 6,
-    borderWidth: 2,
+    borderWidth: 1.5,
     borderColor: Colors.textOnPrimary,
+    borderRadius: 2,
+    transform: [{rotate: '-12deg'}],
+  },
+  avatarFloat: {
+    position: 'absolute',
+    top: 1,
+    right: 1,
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    borderWidth: 1.5,
+    borderColor: '#E8788A',
   },
   clubInfo: {
     flex: 1,

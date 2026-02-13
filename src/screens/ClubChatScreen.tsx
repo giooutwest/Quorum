@@ -20,19 +20,30 @@ interface ClubChatScreenProps {
   onBack: () => void;
 }
 
-const MessageBubble: React.FC<{message: ClubMessage}> = ({message}) => (
-  <View style={msgStyles.row}>
-    <View style={msgStyles.avatar}>
-      <Text style={msgStyles.avatarText}>
-        {message.memberName.charAt(0)}
-      </Text>
-    </View>
-    <View style={msgStyles.bubble}>
-      <View style={msgStyles.bubbleHeader}>
-        <Text style={msgStyles.senderName}>{message.memberName}</Text>
-        <Text style={msgStyles.time}>{message.timestamp}</Text>
+const MessageBubble: React.FC<{message: ClubMessage; isCurrentUser: boolean}> = ({message, isCurrentUser}) => (
+  <View style={[msgStyles.row, isCurrentUser && msgStyles.rowRight]}>
+    {!isCurrentUser && (
+      <View style={msgStyles.avatar}>
+        <Text style={msgStyles.avatarText}>
+          {message.memberName.charAt(0)}
+        </Text>
       </View>
-      <Text style={msgStyles.text}>{message.text}</Text>
+    )}
+    <View style={msgStyles.bubbleWrap}>
+      {!isCurrentUser && (
+        <Text style={msgStyles.senderName}>{message.memberName}</Text>
+      )}
+      <View style={[
+        msgStyles.bubble,
+        isCurrentUser ? msgStyles.bubbleRight : msgStyles.bubbleLeft,
+      ]}>
+        <Text style={[msgStyles.text, isCurrentUser && msgStyles.textRight]}>
+          {message.text}
+        </Text>
+      </View>
+      <Text style={[msgStyles.time, isCurrentUser && msgStyles.timeRight]}>
+        {message.timestamp}
+      </Text>
     </View>
   </View>
 );
@@ -41,51 +52,69 @@ const msgStyles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.sm,
+    paddingVertical: 4,
+    alignItems: 'flex-end',
+  },
+  rowRight: {
+    justifyContent: 'flex-end',
   },
   avatar: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     backgroundColor: Colors.primaryBlack,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: Spacing.sm,
-    marginTop: 2,
+    marginRight: 8,
+    marginBottom: 18,
   },
   avatarText: {
     ...Typography.bodySmall,
     color: Colors.textOnPrimary,
     fontWeight: '700',
+    fontSize: 11,
   },
-  bubble: {
-    flex: 1,
-    backgroundColor: Colors.backgroundElevated,
-    padding: Spacing.md,
-    borderWidth: 1,
-    borderColor: Colors.borderLight,
-    borderRadius: 8,
-  },
-  bubbleHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: Spacing.xs,
+  bubbleWrap: {
+    maxWidth: '75%',
   },
   senderName: {
     ...Typography.bodySmall,
-    fontWeight: '700',
-    color: Colors.textPrimary,
-    letterSpacing: 0.5,
-  },
-  time: {
-    ...Typography.bodySmall,
+    fontWeight: '600',
     color: Colors.textTertiary,
     fontSize: 11,
+    marginBottom: 2,
+    marginLeft: 4,
+  },
+  bubble: {
+    padding: 12,
+    borderRadius: 18,
+  },
+  bubbleLeft: {
+    backgroundColor: '#F0F0F0',
+    borderBottomLeftRadius: 4,
+  },
+  bubbleRight: {
+    backgroundColor: Colors.primaryBlack,
+    borderBottomRightRadius: 4,
   },
   text: {
     ...Typography.bodyMedium,
-    color: Colors.textSecondary,
+    color: Colors.textPrimary,
+  },
+  textRight: {
+    color: Colors.textOnPrimary,
+  },
+  time: {
+    ...Typography.bodySmall,
+    fontSize: 10,
+    color: Colors.textTertiary,
+    marginTop: 2,
+    marginLeft: 4,
+  },
+  timeRight: {
+    textAlign: 'right' as const,
+    marginRight: 4,
+    marginLeft: 0,
   },
 });
 
@@ -178,7 +207,9 @@ const ClubChatScreen: React.FC<ClubChatScreenProps> = ({club, onBack}) => {
 
       <FlatList
         data={club.messages}
-        renderItem={({item}: {item: ClubMessage}) => <MessageBubble message={item} />}
+        renderItem={({item}: {item: ClubMessage}) => (
+          <MessageBubble message={item} isCurrentUser={item.memberId === club.members[0].id} />
+        )}
         keyExtractor={(item: ClubMessage) => item.id}
         ListHeaderComponent={renderHeader}
         showsVerticalScrollIndicator={false}
