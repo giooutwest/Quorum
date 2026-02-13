@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   },
   progressBarFill: {
     height: 3,
-    backgroundColor: Colors.primaryBlack,
+    backgroundColor: Colors.accent,
     borderRadius: 9999,
   },
 });

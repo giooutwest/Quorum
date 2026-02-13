@@ -20,7 +20,7 @@ const ProfileScreen: React.FC = () => {
         <View style={styles.profileSection}>
           {/* Avatar */}
           <LinearGradient
-            colors={['#E8E8E8', '#D0D0D0', '#BFBFBF']}
+            colors={['#9AAF7C', '#7A8C5A', '#556B2F']}
             start={{x: 0, y: 0}}
             end={{x: 1, y: 1}}
             style={styles.avatarOuter}>
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   profileHandle: {
     ...Typography.bodyMedium,
-    color: Colors.textTertiary,
+    color: Colors.accentMuted,
     marginBottom: Spacing.sm,
   },
   profileBio: {

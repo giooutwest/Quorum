@@ -68,7 +68,7 @@ const DealCard: React.FC<DealCardProps> = ({deal, onCommit}) => {
 const styles = StyleSheet.create({
   dealType: {
     ...Typography.bodySmall,
-    color: Colors.textTertiary,
+    color: Colors.accent,
     letterSpacing: 1,
     marginBottom: Spacing.xs,
   },

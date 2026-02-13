@@ -20,8 +20,13 @@ export const Colors = {
   textTertiary: '#808080',
   textOnPrimary: '#FFFFFF',
 
+  // Accent
+  accent: '#556B2F',
+  accentLight: '#EEF1E8',
+  accentMuted: '#7A8C5A',
+
   // Semantic
-  positive: '#0A6E3A',
+  positive: '#556B2F',
   negative: '#8B1A1A',
 
   // Borders

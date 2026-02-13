@@ -83,13 +83,13 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({data}) => {
           })}
 
           {/* Area fill */}
-          <path d={areaPath} fill={Colors.borderLight} opacity={0.3} />
+          <path d={areaPath} fill={Colors.accentLight} opacity={0.5} />
 
           {/* Line */}
           <path
             d={linePath}
             fill="none"
-            stroke={Colors.primaryBlack}
+            stroke={Colors.accent}
             strokeWidth={2.5}
           />
 
@@ -101,7 +101,7 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({data}) => {
               cy={p.y}
               r={3}
               fill={Colors.backgroundPrimary}
-              stroke={Colors.primaryBlack}
+              stroke={Colors.accent}
               strokeWidth={2}
             />
           ))}

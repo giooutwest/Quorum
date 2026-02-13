@@ -225,8 +225,8 @@ const modalStyles = StyleSheet.create({
     borderColor: Colors.borderLight,
   },
   pillActive: {
-    backgroundColor: Colors.primaryBlack,
-    borderColor: Colors.primaryBlack,
+    backgroundColor: Colors.accent,
+    borderColor: Colors.accent,
   },
   pillText: {
     ...Typography.bodySmall,

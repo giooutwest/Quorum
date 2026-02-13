@@ -324,7 +324,7 @@ const styles = StyleSheet.create({
   },
   progressBarFill: {
     height: 6,
-    backgroundColor: Colors.primaryBlack,
+    backgroundColor: Colors.accent,
     borderRadius: 9999,
   },
   progressLabels: {

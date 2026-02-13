@@ -40,7 +40,7 @@ const ObsidianButton: React.FC<ObsidianButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: Colors.primaryBlack,
+    backgroundColor: Colors.accent,
     paddingVertical: 12,
     paddingHorizontal: Spacing.lg,
     borderRadius: 8,
