@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, ScrollView, Text, StyleSheet} from 'react-native';
-import {PortfolioHeader, PortfolioChart, HoldingRow} from '@components';
+import {PortfolioHeader, PortfolioChart, HoldingRow, OliveLogo} from '@components';
 import {mockHoldings, mockPerformanceData} from '@data';
 import {Colors, Typography, Spacing} from '@theme';
 import LinearGradient from 'react-native-linear-gradient';
@@ -9,6 +9,7 @@ const ProfileScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headerBar}>
+        <OliveLogo size={22} />
         <Text style={styles.headerTitle}>You</Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -89,7 +90,7 @@ const ProfileScreen: React.FC = () => {
         </View>
 
         <View style={styles.footer}>
-          <Text style={styles.footerText}>Quorum v1.0</Text>
+          <Text style={styles.footerText}>Olive v1.0</Text>
         </View>
       </ScrollView>
     </View>
@@ -102,6 +103,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundPrimary,
   },
   headerBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
     borderBottomWidth: 1,

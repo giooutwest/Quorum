@@ -1,5 +1,6 @@
 import React, {useState, useCallback} from 'react';
 import {View, FlatList, Text, StyleSheet, Pressable} from 'react-native';
+import {OliveLogo} from '@components';
 import {mockPools} from '@data';
 import {Colors, Typography, Spacing} from '@theme';
 import {Club} from '@app-types';
@@ -81,6 +82,7 @@ const ClubsScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headerBar}>
+        <OliveLogo size={22} />
         <Text style={styles.headerTitle}>Pools</Text>
       </View>
       <FlatList
@@ -101,6 +103,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundPrimary,
   },
   headerBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
     borderBottomWidth: 1,

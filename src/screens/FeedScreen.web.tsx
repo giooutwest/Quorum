@@ -1,6 +1,6 @@
 import React, {useState, useCallback} from 'react';
 import {View, FlatList, Text, StyleSheet, Pressable} from 'react-native';
-import {DealCard, ObsidianButton} from '@components';
+import {DealCard, ObsidianButton, OliveLogo} from '@components';
 import {mockDeals} from '@data';
 import {Colors, Typography, Spacing} from '@theme';
 import {Deal} from '@app-types';
@@ -53,6 +53,7 @@ const FeedScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headerBar}>
+        <OliveLogo size={22} />
         <Text style={styles.headerTitle}>Opportunities</Text>
       </View>
       <FlatList
@@ -141,6 +142,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundPrimary,
   },
   headerBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
     borderBottomWidth: 1,

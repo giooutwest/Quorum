@@ -1,7 +1,7 @@
 import React, {useState, useCallback} from 'react';
 import {View, FlatList, Text, StyleSheet, Alert, Platform, Modal, Pressable} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {DealCard, ObsidianButton} from '@components';
+import {DealCard, ObsidianButton, OliveLogo} from '@components';
 import {mockDeals} from '@data';
 import {Colors, Typography, Spacing} from '@theme';
 import {Deal} from '@app-types';
@@ -58,6 +58,7 @@ const FeedScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.headerBar}>
+        <OliveLogo size={22} />
         <Text style={styles.headerTitle}>Opportunities</Text>
       </View>
       <FlatList
@@ -147,6 +148,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundPrimary,
   },
   headerBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
     borderBottomWidth: 1,
