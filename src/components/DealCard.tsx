@@ -56,7 +56,7 @@ const DealCard: React.FC<DealCardProps> = ({deal, onCommit}) => {
       )}
 
       <ObsidianButton
-        title="Invest"
+        title="Reserve Allocation"
         onPress={() => onCommit(deal.id)}
         disabled={deal.status === 'closed' || deal.status === 'funded'}
         style={styles.commitButton}

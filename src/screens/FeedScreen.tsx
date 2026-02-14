@@ -1,22 +1,27 @@
 import React, {useState, useCallback} from 'react';
-import {View, FlatList, Text, StyleSheet, Alert, Platform, Modal, Pressable} from 'react-native';
+import {View, FlatList, Text, StyleSheet, Platform, Modal, Pressable} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {DealCard, ObsidianButton, OliveLogo} from '@components';
 import {mockDeals} from '@data';
 import {Colors, Typography, Spacing} from '@theme';
 import {Deal} from '@app-types';
+import {collection, addDoc, serverTimestamp} from 'firebase/firestore';
+import {db, auth} from '../firebase';
 
 const NUM_KEYS = ['1','2','3','4','5','6','7','8','9','','0','⌫'] as const;
 
 const FeedScreen: React.FC = () => {
   const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
   const [investAmount, setInvestAmount] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleCommit = useCallback((dealId: string) => {
     const deal = mockDeals.find(d => d.id === dealId);
     if (deal) {
       setSelectedDeal(deal);
       setInvestAmount('');
+      setShowSuccess(false);
     }
   }, []);
 
@@ -31,14 +36,31 @@ const FeedScreen: React.FC = () => {
     }
   }, []);
 
-  const handleInvest = useCallback(() => {
-    if (!selectedDeal || !investAmount) return;
-    if (Platform.OS === 'web') {
-      (globalThis as any).alert(`You invested $${investAmount} in ${selectedDeal.name}`);
-    } else {
-      Alert.alert('Invested!', `You invested $${investAmount} in ${selectedDeal.name}`);
+  const handleReserve = useCallback(async () => {
+    if (!selectedDeal || !investAmount || !auth.currentUser) return;
+    setSubmitting(true);
+    try {
+      await addDoc(collection(db, 'pledges'), {
+        userId: auth.currentUser.uid,
+        dealId: selectedDeal.id,
+        dealName: selectedDeal.name,
+        dealType: selectedDeal.dealType,
+        amount: Number(investAmount),
+        status: 'pending',
+        timestamp: serverTimestamp(),
+      });
+      setShowSuccess(true);
+      setTimeout(() => {
+        setSelectedDeal(null);
+        setShowSuccess(false);
+      }, 2000);
+    } catch {
+      if (Platform.OS === 'web') {
+        (globalThis as any).alert('Something went wrong. Please try again.');
+      }
+    } finally {
+      setSubmitting(false);
     }
-    setSelectedDeal(null);
   }, [selectedDeal, investAmount]);
 
   const renderDeal = useCallback(
@@ -73,66 +95,81 @@ const FeedScreen: React.FC = () => {
         <Modal visible animationType="slide" transparent>
           <View style={modalStyles.overlay}>
             <View style={modalStyles.sheet}>
-              {/* Header */}
-              <View style={modalStyles.sheetHeader}>
-                <Pressable onPress={() => setSelectedDeal(null)} style={modalStyles.cancelBtn}>
-                  <Text style={modalStyles.cancelText}>Cancel</Text>
-                </Pressable>
-                <Text style={modalStyles.dealName} numberOfLines={1}>{selectedDeal.name}</Text>
-                <View style={modalStyles.cancelBtn} />
-              </View>
+              {showSuccess ? (
+                <View style={modalStyles.successSection}>
+                  <Text style={modalStyles.successTitle}>Interest Registered.</Text>
+                  <Text style={modalStyles.successSubtitle}>Allocation Pending.</Text>
+                </View>
+              ) : (
+                <>
+                  {/* Header */}
+                  <View style={modalStyles.sheetHeader}>
+                    <Pressable onPress={() => setSelectedDeal(null)} style={modalStyles.cancelBtn}>
+                      <Text style={modalStyles.cancelText}>Cancel</Text>
+                    </Pressable>
+                    <Text style={modalStyles.dealName} numberOfLines={1}>{selectedDeal.name}</Text>
+                    <View style={modalStyles.cancelBtn} />
+                  </View>
 
-              {/* Amount display */}
-              <View style={modalStyles.amountSection}>
-                <Text style={modalStyles.amount}>
-                  ${investAmount || '0'}
-                </Text>
-              </View>
-
-              {/* Percentage pills */}
-              <View style={modalStyles.pillRow}>
-                {percentages.map(pct => (
-                  <Pressable
-                    key={pct.label}
-                    style={[
-                      modalStyles.pill,
-                      investAmount === String(pct.value) && modalStyles.pillActive,
-                    ]}
-                    onPress={() => setInvestAmount(String(pct.value))}>
-                    <Text style={[
-                      modalStyles.pillText,
-                      investAmount === String(pct.value) && modalStyles.pillTextActive,
-                    ]}>
-                      {pct.label} · ${pct.value}
+                  {/* Amount display */}
+                  <View style={modalStyles.amountSection}>
+                    <Text style={modalStyles.amount}>
+                      ${investAmount || '0'}
                     </Text>
-                  </Pressable>
-                ))}
-              </View>
+                  </View>
 
-              {/* Numpad */}
-              <View style={modalStyles.numpad}>
-                {NUM_KEYS.map((key, i) => (
-                  <Pressable
-                    key={`${key}-${i}`}
-                    style={modalStyles.numKey}
-                    onPress={() => handleNumPress(key)}>
-                    <Text style={[
-                      modalStyles.numKeyText,
-                      key === '⌫' && modalStyles.numKeyBackspace,
-                      key === '' && modalStyles.numKeyEmpty,
-                    ]}>
-                      {key}
-                    </Text>
-                  </Pressable>
-                ))}
-              </View>
+                  {/* Percentage pills */}
+                  <View style={modalStyles.pillRow}>
+                    {percentages.map(pct => (
+                      <Pressable
+                        key={pct.label}
+                        style={[
+                          modalStyles.pill,
+                          investAmount === String(pct.value) && modalStyles.pillActive,
+                        ]}
+                        onPress={() => setInvestAmount(String(pct.value))}>
+                        <Text style={[
+                          modalStyles.pillText,
+                          investAmount === String(pct.value) && modalStyles.pillTextActive,
+                        ]}>
+                          {pct.label} · ${pct.value}
+                        </Text>
+                      </Pressable>
+                    ))}
+                  </View>
 
-              {/* Invest button */}
-              <ObsidianButton
-                title={investAmount ? `Invest $${investAmount}` : 'Invest'}
-                onPress={handleInvest}
-                disabled={!investAmount || investAmount === '0'}
-              />
+                  {/* Disclaimer */}
+                  <Text style={modalStyles.disclaimer}>
+                    This is a reservation, not a charge. Funds will only be collected when the deal closes and you confirm.
+                  </Text>
+
+                  {/* Numpad */}
+                  <View style={modalStyles.numpad}>
+                    {NUM_KEYS.map((key, i) => (
+                      <Pressable
+                        key={`${key}-${i}`}
+                        style={modalStyles.numKey}
+                        onPress={() => handleNumPress(key)}>
+                        <Text style={[
+                          modalStyles.numKeyText,
+                          key === '⌫' && modalStyles.numKeyBackspace,
+                          key === '' && modalStyles.numKeyEmpty,
+                        ]}>
+                          {key}
+                        </Text>
+                      </Pressable>
+                    ))}
+                  </View>
+
+                  {/* Reserve button */}
+                  <ObsidianButton
+                    title={investAmount ? `Reserve $${investAmount}` : 'Reserve'}
+                    onPress={handleReserve}
+                    disabled={!investAmount || investAmount === '0' || submitting}
+                    loading={submitting}
+                  />
+                </>
+              )}
             </View>
           </View>
         </Modal>
@@ -151,10 +188,6 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.md,
     borderBottomWidth: 1,
     borderBottomColor: Colors.borderHeavy,
-  },
-  headerTitle: {
-    ...Typography.headerLarge,
-    color: Colors.textPrimary,
   },
   listContent: {
     paddingVertical: Spacing.md,
@@ -210,7 +243,7 @@ const modalStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     gap: Spacing.sm,
-    marginBottom: Spacing.xl,
+    marginBottom: Spacing.md,
   },
   pill: {
     paddingHorizontal: 16,
@@ -230,6 +263,14 @@ const modalStyles = StyleSheet.create({
   },
   pillTextActive: {
     color: Colors.textOnPrimary,
+  },
+  disclaimer: {
+    ...Typography.bodySmall,
+    color: Colors.textTertiary,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    marginBottom: Spacing.lg,
+    paddingHorizontal: Spacing.md,
   },
   numpad: {
     flexDirection: 'row',
@@ -252,6 +293,19 @@ const modalStyles = StyleSheet.create({
   },
   numKeyEmpty: {
     color: 'transparent',
+  },
+  successSection: {
+    alignItems: 'center',
+    paddingVertical: Spacing.xxxl,
+  },
+  successTitle: {
+    ...Typography.headerMedium,
+    color: Colors.textPrimary,
+    marginBottom: Spacing.sm,
+  },
+  successSubtitle: {
+    ...Typography.bodyMedium,
+    color: Colors.textTertiary,
   },
 });
 

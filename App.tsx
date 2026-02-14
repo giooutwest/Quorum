@@ -1,9 +1,15 @@
 import React from 'react';
 import {Platform, StatusBar, View, Text, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {BottomTabs} from './src/navigation';
 import {Colors} from './src/theme';
+import {AuthProvider, useAuth} from './src/context/AuthContext';
+import LoginScreen from './src/screens/LoginScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
+import SplashScreen from './src/screens/SplashScreen';
+import OnboardingScreen from './src/screens/OnboardingScreen';
 
 class ErrorBoundary extends React.Component<
   {children: React.ReactNode},
@@ -61,6 +67,38 @@ const errorStyles = StyleSheet.create({
   },
 });
 
+export type AuthStackParamList = {
+  Login: undefined;
+  SignUp: undefined;
+};
+
+const Stack = createNativeStackNavigator<AuthStackParamList>();
+
+const AuthStack: React.FC = () => (
+  <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Screen name="SignUp" component={SignUpScreen} />
+  </Stack.Navigator>
+);
+
+const AppNavigator: React.FC = () => {
+  const {user, isLoading, hasSeenOnboarding} = useAuth();
+
+  if (isLoading) {
+    return <SplashScreen />;
+  }
+
+  if (!user) {
+    return <AuthStack />;
+  }
+
+  if (!hasSeenOnboarding) {
+    return <OnboardingScreen />;
+  }
+
+  return <BottomTabs />;
+};
+
 const App: React.FC = () => {
   return (
     <View
@@ -74,9 +112,11 @@ const App: React.FC = () => {
             barStyle="dark-content"
             backgroundColor={Colors.backgroundPrimary}
           />
-          <NavigationContainer>
-            <BottomTabs />
-          </NavigationContainer>
+          <AuthProvider>
+            <NavigationContainer>
+              <AppNavigator />
+            </NavigationContainer>
+          </AuthProvider>
         </SafeAreaProvider>
       </ErrorBoundary>
     </View>
