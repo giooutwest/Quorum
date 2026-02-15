@@ -4,8 +4,14 @@ import {FeedScreen} from './src/screens';
 import {ClubsScreen} from './src/screens';
 import {ProfileScreen} from './src/screens';
 import {Colors, Typography} from './src/theme';
+import {AuthProvider, useAuth} from './src/context/AuthContext';
+import SplashScreen from './src/screens/SplashScreen';
+import LoginScreen from './src/screens/LoginScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
+import OnboardingScreen from './src/screens/OnboardingScreen';
 
 type TabKey = 'deals' | 'pools' | 'you';
+type AuthScreen = 'login' | 'signup';
 
 // --- Geometric tab icons ---
 
@@ -56,7 +62,6 @@ const iconStyles = StyleSheet.create({
   boxFocused: {
     opacity: 1,
   },
-  // Deals — document icon
   docBody: {
     width: 16,
     height: 20,
@@ -82,7 +87,6 @@ const iconStyles = StyleSheet.create({
     height: 2,
     backgroundColor: Colors.primaryBlack,
   },
-  // Pools — diagonal pool with ladder and flamingo
   poolContainer: {
     width: 24,
     height: 24,
@@ -149,7 +153,6 @@ const iconStyles = StyleSheet.create({
     backgroundColor: Colors.primaryBlack,
     borderRadius: 1,
   },
-  // Profile — person silhouette
   personHead: {
     width: 10,
     height: 10,
@@ -232,10 +235,42 @@ const TABS: {key: TabKey; label: string; Icon: React.FC<{focused: boolean}>}[] =
   {key: 'you', label: 'You', Icon: ProfileIcon},
 ];
 
-// --- Main App ---
+// --- Auth Navigator (web) ---
 
-const App: React.FC = () => {
+const AuthNavigator: React.FC = () => {
+  const [screen, setScreen] = useState<AuthScreen>('login');
+
+  const navigation = {
+    navigate: (name: string) => {
+      if (name === 'SignUp') setScreen('signup');
+      if (name === 'Login') setScreen('login');
+    },
+    goBack: () => setScreen('login'),
+  };
+
+  if (screen === 'signup') {
+    return <SignUpScreen navigation={navigation} />;
+  }
+  return <LoginScreen navigation={navigation} />;
+};
+
+// --- Main App Content ---
+
+const AppContent: React.FC = () => {
+  const {user, isLoading, hasSeenOnboarding} = useAuth();
   const [activeTab, setActiveTab] = useState<TabKey>('deals');
+
+  if (isLoading) {
+    return <SplashScreen />;
+  }
+
+  if (!user) {
+    return <AuthNavigator />;
+  }
+
+  if (!hasSeenOnboarding) {
+    return <OnboardingScreen />;
+  }
 
   const renderScreen = () => {
     switch (activeTab) {
@@ -249,31 +284,43 @@ const App: React.FC = () => {
   };
 
   return (
+    <>
+      <View style={styles.screenContainer}>
+        {renderScreen()}
+      </View>
+
+      <View style={styles.tabBar}>
+        {TABS.map(({key, label, Icon}) => (
+          <Pressable
+            key={key}
+            style={styles.tabItem}
+            onPress={() => setActiveTab(key)}>
+            <Icon focused={activeTab === key} />
+            <Text
+              style={[
+                styles.tabLabel,
+                activeTab === key
+                  ? styles.tabLabelActive
+                  : styles.tabLabelInactive,
+              ]}>
+              {label}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+    </>
+  );
+};
+
+// --- Main App ---
+
+const App: React.FC = () => {
+  return (
     <View style={styles.root}>
       <ErrorBoundary>
-        <View style={styles.screenContainer}>
-          {renderScreen()}
-        </View>
-
-        <View style={styles.tabBar}>
-          {TABS.map(({key, label, Icon}) => (
-            <Pressable
-              key={key}
-              style={styles.tabItem}
-              onPress={() => setActiveTab(key)}>
-              <Icon focused={activeTab === key} />
-              <Text
-                style={[
-                  styles.tabLabel,
-                  activeTab === key
-                    ? styles.tabLabelActive
-                    : styles.tabLabelInactive,
-                ]}>
-                {label}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
       </ErrorBoundary>
     </View>
   );
