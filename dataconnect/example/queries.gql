@@ -1,0 +1,43 @@
+query ListAllMovies @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  movies {
+    id
+    title
+    year
+    genres
+  }
+}
+
+query MyMovieLists @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  movieLists(where: {userId: {eq_expr: "auth.uid"}}) {
+    id
+    name
+    description
+    isPublic
+    updatedAt
+  }
+}
+
+mutation CreateNewMovie($title: String!, $year: Int!, $genres: [String!], $runtimeMinutes: Int, $summary: String) @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  movie_insert(data: {
+    title: $title,
+    year: $year,
+    genres: $genres,
+    runtimeMinutes: $runtimeMinutes,
+    summary: $summary,
+    createdAt_expr: "request.time"
+  }) {
+    id
+  }
+}
+
+mutation AddMovieToMyList($movieListId: UUID!, $movieId: UUID!, $note: String, $position: Int!) @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  movieListEntry_insert(data: {
+    movieListId: $movieListId,
+    movieId: $movieId,
+    note: $note,
+    position: $position
+  }) {
+    movieListId
+    movieId
+  }
+}

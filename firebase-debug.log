@@ -1,0 +1,402 @@
+[debug] [2026-02-13T22:25:50.911Z] ----------------------------------------------------------------------
+[debug] [2026-02-13T22:25:50.913Z] Command:       /opt/homebrew/Cellar/node@20/20.19.6/bin/node /opt/homebrew/bin/firebase init
+[debug] [2026-02-13T22:25:50.914Z] CLI Version:   15.6.0
+[debug] [2026-02-13T22:25:50.914Z] Platform:      darwin
+[debug] [2026-02-13T22:25:50.914Z] Node Version:  v20.19.6
+[debug] [2026-02-13T22:25:50.914Z] Time:          Fri Feb 13 2026 16:25:50 GMT-0600 (Central Standard Time)
+[debug] [2026-02-13T22:25:50.914Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/osimac/Desktop/Quorum
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 
+[debug] [2026-02-13T22:26:20.119Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-13T22:26:20.120Z] > authorizing via signed-in user (glocky200@gmail.com)
+[debug] [2026-02-13T22:26:20.122Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:26:20.122Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:26:20.126Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2026-02-13T22:26:20.412Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2026-02-13T22:26:20.413Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] 
+=== Dataconnect Setup
+[info] i  dataconnect: ensuring required API firebasedataconnect.googleapis.com is enabled... 
+[debug] [2026-02-13T22:26:21.703Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:26:21.703Z] Checked if tokens are valid: true, expires at: 1771025142866
+[info] i  dataconnect: ensuring required API sqladmin.googleapis.com is enabled... 
+[debug] [2026-02-13T22:26:21.704Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:26:21.704Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:26:21.704Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/firebasedataconnect.googleapis.com [none]
+[debug] [2026-02-13T22:26:21.704Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/firebasedataconnect.googleapis.com  x-goog-user-project=olive-447fa
+[debug] [2026-02-13T22:26:21.706Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/sqladmin.googleapis.com [none]
+[debug] [2026-02-13T22:26:21.706Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/sqladmin.googleapis.com  x-goog-user-project=olive-447fa
+[debug] [2026-02-13T22:26:21.943Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/sqladmin.googleapis.com 200
+[debug] [2026-02-13T22:26:21.943Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/sqladmin.googleapis.com [omitted]
+[warn] ⚠  dataconnect: missing required API sqladmin.googleapis.com. Enabling now... 
+[debug] [2026-02-13T22:26:21.944Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:26:21.944Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:26:21.945Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/sqladmin.googleapis.com:enable [none]
+[debug] [2026-02-13T22:26:21.945Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/sqladmin.googleapis.com:enable  x-goog-user-project=olive-447fa
+[debug] [2026-02-13T22:26:21.950Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/firebasedataconnect.googleapis.com 200
+[debug] [2026-02-13T22:26:21.950Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/firebasedataconnect.googleapis.com [omitted]
+[warn] ⚠  dataconnect: missing required API firebasedataconnect.googleapis.com. Enabling now... 
+[debug] [2026-02-13T22:26:21.950Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:26:21.950Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:26:21.950Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/firebasedataconnect.googleapis.com:enable [none]
+[debug] [2026-02-13T22:26:21.951Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/firebasedataconnect.googleapis.com:enable  x-goog-user-project=olive-447fa
+[debug] [2026-02-13T22:26:22.120Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/sqladmin.googleapis.com:enable 200
+[debug] [2026-02-13T22:26:22.120Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/sqladmin.googleapis.com:enable [omitted]
+[debug] [2026-02-13T22:26:22.154Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/firebasedataconnect.googleapis.com:enable 200
+[debug] [2026-02-13T22:26:22.155Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/firebasedataconnect.googleapis.com:enable [omitted]
+[debug] [2026-02-13T22:26:32.256Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:26:32.257Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:26:32.258Z] >>> [apiv2][query] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/-/services [none]
+[debug] [2026-02-13T22:26:32.711Z] <<< [apiv2][status] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/-/services 200
+[debug] [2026-02-13T22:26:32.711Z] <<< [apiv2][body] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/-/services {}
+[info] i  : ensuring required API cloudaicompanion.googleapis.com is enabled... 
+[debug] [2026-02-13T22:28:07.784Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:07.784Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:07.784Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/cloudaicompanion.googleapis.com [none]
+[debug] [2026-02-13T22:28:07.784Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/cloudaicompanion.googleapis.com  x-goog-user-project=olive-447fa
+[debug] [2026-02-13T22:28:08.014Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/cloudaicompanion.googleapis.com 200
+[debug] [2026-02-13T22:28:08.014Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/cloudaicompanion.googleapis.com [omitted]
+[info] ✔  : required API cloudaicompanion.googleapis.com is enabled 
+[debug] [2026-02-13T22:28:12.802Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:12.802Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:12.802Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/olive-447fa/billingInfo [none]
+[debug] [2026-02-13T22:28:12.906Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/olive-447fa/billingInfo 200
+[debug] [2026-02-13T22:28:12.906Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/olive-447fa/billingInfo {"name":"projects/olive-447fa/billingInfo","projectId":"olive-447fa","billingAccountName":"","billingEnabled":false}
+[debug] [2026-02-13T22:28:12.907Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:12.907Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:12.908Z] >>> [apiv2][query] GET https://monitoring.googleapis.com/v3/projects/olive-447fa/timeSeries/ filter=metric.type%3D%22serviceruntime.googleapis.com%2Fquota%2Fallocation%2Fusage%22+AND+metric.label.quota_metric+%3D+%22sqladmin.googleapis.com%2Ffdc_lifetime_free_trial_per_project%22&interval.endTime=2026-02-13T22%3A28%3A12.906Z&interval.startTime=2026-02-06T22%3A28%3A12.906Z
+[debug] [2026-02-13T22:28:13.893Z] <<< [apiv2][status] GET https://monitoring.googleapis.com/v3/projects/olive-447fa/timeSeries/ 200
+[debug] [2026-02-13T22:28:13.893Z] <<< [apiv2][body] GET https://monitoring.googleapis.com/v3/projects/olive-447fa/timeSeries/ {"unit":"1"}
+[info] ✔  dataconnect: Detected existing apps android/app (android), ios (ios), ios/Pods (ios), . (web) 
+[debug] [2026-02-13T22:28:24.854Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:24.854Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:24.855Z] >>> [apiv2][query] POST https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/services service_id=quorum
+[debug] [2026-02-13T22:28:24.855Z] >>> [apiv2][body] POST https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/services {"name":"projects/olive-447fa/locations/us-east4/services/quorum"}
+[debug] [2026-02-13T22:28:26.915Z] <<< [apiv2][status] POST https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/services 200
+[debug] [2026-02-13T22:28:26.915Z] <<< [apiv2][body] POST https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/services {"name":"projects/olive-447fa/locations/us-east4/operations/operation-1771021705147-64abc1f9ff4db-8cf05c00-1dfb0aea","metadata":{"@type":"type.googleapis.com/google.firebase.dataconnect.v1.OperationMetadata","createTime":"2026-02-13T22:28:26.907943052Z","target":"projects/olive-447fa/locations/us-east4/services/quorum","verb":"create","requestedCancellation":false,"apiVersion":"v1"},"done":false}
+[debug] [2026-02-13T22:28:26.916Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:26.916Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:26.917Z] >>> [apiv2][query] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021705147-64abc1f9ff4db-8cf05c00-1dfb0aea [none]
+[debug] [2026-02-13T22:28:27.020Z] <<< [apiv2][status] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021705147-64abc1f9ff4db-8cf05c00-1dfb0aea 200
+[debug] [2026-02-13T22:28:27.020Z] <<< [apiv2][body] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021705147-64abc1f9ff4db-8cf05c00-1dfb0aea {"name":"projects/olive-447fa/locations/us-east4/operations/operation-1771021705147-64abc1f9ff4db-8cf05c00-1dfb0aea","metadata":{"@type":"type.googleapis.com/google.firebase.dataconnect.v1.OperationMetadata","createTime":"2026-02-13T22:28:26.907943052Z","target":"projects/olive-447fa/locations/us-east4/services/quorum","verb":"create","requestedCancellation":false,"apiVersion":"v1"},"done":false}
+[debug] [2026-02-13T22:28:27.521Z] [LRO Poller] Retrying task index 0
+[debug] [2026-02-13T22:28:27.521Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:27.521Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:27.522Z] >>> [apiv2][query] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021705147-64abc1f9ff4db-8cf05c00-1dfb0aea [none]
+[debug] [2026-02-13T22:28:27.611Z] <<< [apiv2][status] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021705147-64abc1f9ff4db-8cf05c00-1dfb0aea 200
+[debug] [2026-02-13T22:28:27.611Z] <<< [apiv2][body] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021705147-64abc1f9ff4db-8cf05c00-1dfb0aea {"name":"projects/olive-447fa/locations/us-east4/operations/operation-1771021705147-64abc1f9ff4db-8cf05c00-1dfb0aea","metadata":{"@type":"type.googleapis.com/google.firebase.dataconnect.v1.OperationMetadata","createTime":"2026-02-13T22:28:26.907943052Z","target":"projects/olive-447fa/locations/us-east4/services/quorum","verb":"create","requestedCancellation":false,"apiVersion":"v1"},"done":false}
+[debug] [2026-02-13T22:28:28.612Z] [LRO Poller] Retrying task index 0
+[debug] [2026-02-13T22:28:28.613Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:28.613Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:28.613Z] >>> [apiv2][query] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021705147-64abc1f9ff4db-8cf05c00-1dfb0aea [none]
+[debug] [2026-02-13T22:28:28.673Z] <<< [apiv2][status] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021705147-64abc1f9ff4db-8cf05c00-1dfb0aea 200
+[debug] [2026-02-13T22:28:28.673Z] <<< [apiv2][body] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021705147-64abc1f9ff4db-8cf05c00-1dfb0aea {"name":"projects/olive-447fa/locations/us-east4/operations/operation-1771021705147-64abc1f9ff4db-8cf05c00-1dfb0aea","metadata":{"@type":"type.googleapis.com/google.firebase.dataconnect.v1.OperationMetadata","createTime":"2026-02-13T22:28:26.907943052Z","endTime":"2026-02-13T22:28:28.028528308Z","target":"projects/olive-447fa/locations/us-east4/services/quorum","verb":"create","requestedCancellation":false,"apiVersion":"v1"},"done":true,"response":{"@type":"type.googleapis.com/google.firebase.dataconnect.v1.Service","name":"projects/olive-447fa/locations/us-east4/services/quorum","createTime":"2026-02-13T22:28:26.904343162Z","updateTime":"2026-02-13T22:28:26.904343162Z","uid":"e78e460b-c25a-414c-8b4c-5734b59fef11","reconciling":false,"etag":"pZ5XQIaGWr9QGTeVH0p5VObXy8hHMZWW4oLn_I9aCJY"}}
+[debug] [2026-02-13T22:28:28.677Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:28.677Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:28.677Z] >>> [apiv2][query] POST https://cloudaicompanion.googleapis.com/v1beta/projects/olive-447fa/locations/global/instances/default:completeTask [none]
+[debug] [2026-02-13T22:28:28.677Z] >>> [apiv2][body] POST https://cloudaicompanion.googleapis.com/v1beta/projects/olive-447fa/locations/global/instances/default:completeTask {"input":{"messages":[{"content":"n","author":"USER"}]},"experienceContext":{"experience":"/appeco/firebase/fdc-schema-generator"}}
+[debug] [2026-02-13T22:28:35.720Z] <<< [apiv2][status] POST https://cloudaicompanion.googleapis.com/v1beta/projects/olive-447fa/locations/global/instances/default:completeTask 200
+[debug] [2026-02-13T22:28:35.720Z] <<< [apiv2][body] POST https://cloudaicompanion.googleapis.com/v1beta/projects/olive-447fa/locations/global/instances/default:completeTask {"output":{"messages":[{"content":"```graphql\ntype User @table {\n  displayName: String!\n  email: String\n  photoUrl: String\n  createdAt: Timestamp!\n}\n\ntype Movie @table {\n  title: String!\n  year: Int!\n  summary: String\n  genres: [String]\n  runtimeMinutes: Int\n  createdAt: Timestamp!\n}\n\ntype Watch @table {\n  user: User!\n  movie: Movie!\n  watchDate: Date!\n  location: String\n  createdAt: Timestamp!\n}\n\ntype Review @table {\n  user: User!\n  movie: Movie!\n  watch: Watch!\n  rating: Int!\n  text: String\n  isPublic: Boolean!\n  privateShareLink: String\n  createdAt: Timestamp!\n  updatedAt: Timestamp!\n}\n\ntype MovieList @table {\n  user: User!\n  name: String!\n  description: String\n  isPublic: Boolean!\n  privateShareLink: String\n  createdAt: Timestamp!\n  updatedAt: Timestamp!\n}\n\ntype MovieListEntry @table(key: [\"movieList\", \"movie\"]) {\n  movieList: MovieList!\n  movie: Movie!\n  position: Int!\n  note: String\n}\n```\n"}]},"displayContext":{"additionalContext":{"@type":"type.googleapis.com/google.cloud.cloudaicompanion.v1main.FirebaseChatDisplayContext","firebaseFdcDisplayContext":{"schemaSyntaxError":""}}}}
+[debug] [2026-02-13T22:28:35.721Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:35.722Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:35.722Z] >>> [apiv2][query] PATCH https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/services/quorum/schemas/main allowMissing=true&validateOnly=false
+[debug] [2026-02-13T22:28:35.722Z] >>> [apiv2][body] PATCH https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/services/quorum/schemas/main {"name":"projects/olive-447fa/locations/us-east4/services/quorum/schemas/main","datasources":[{"postgresql":{}}],"source":{"files":[{"path":"schema.gql","content":"type User @table {\n  displayName: String!\n  email: String\n  photoUrl: String\n  createdAt: Timestamp!\n}\n\ntype Movie @table {\n  title: String!\n  year: Int!\n  summary: String\n  genres: [String]\n  runtimeMinutes: Int\n  createdAt: Timestamp!\n}\n\ntype Watch @table {\n  user: User!\n  movie: Movie!\n  watchDate: Date!\n  location: String\n  createdAt: Timestamp!\n}\n\ntype Review @table {\n  user: User!\n  movie: Movie!\n  watch: Watch!\n  rating: Int!\n  text: String\n  isPublic: Boolean!\n  privateShareLink: String\n  createdAt: Timestamp!\n  updatedAt: Timestamp!\n}\n\ntype MovieList @table {\n  user: User!\n  name: String!\n  description: String\n  isPublic: Boolean!\n  privateShareLink: String\n  createdAt: Timestamp!\n  updatedAt: Timestamp!\n}\n\ntype MovieListEntry @table(key: [\"movieList\", \"movie\"]) {\n  movieList: MovieList!\n  movie: Movie!\n  position: Int!\n  note: String\n}"}]}}
+[debug] [2026-02-13T22:28:36.071Z] <<< [apiv2][status] PATCH https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/services/quorum/schemas/main 200
+[debug] [2026-02-13T22:28:36.071Z] <<< [apiv2][body] PATCH https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/services/quorum/schemas/main {"name":"projects/olive-447fa/locations/us-east4/operations/operation-1771021716004-64abc20459efe-9897a15b-9bafe0bc","metadata":{"@type":"type.googleapis.com/google.firebase.dataconnect.v1.OperationMetadata","createTime":"2026-02-13T22:28:36.068115910Z","target":"projects/olive-447fa/locations/us-east4/services/quorum/schemas/main","verb":"update","requestedCancellation":false,"apiVersion":"v1"},"done":false}
+[debug] [2026-02-13T22:28:36.072Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:36.072Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:36.072Z] >>> [apiv2][query] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021716004-64abc20459efe-9897a15b-9bafe0bc [none]
+[debug] [2026-02-13T22:28:36.155Z] <<< [apiv2][status] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021716004-64abc20459efe-9897a15b-9bafe0bc 200
+[debug] [2026-02-13T22:28:36.155Z] <<< [apiv2][body] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021716004-64abc20459efe-9897a15b-9bafe0bc {"name":"projects/olive-447fa/locations/us-east4/operations/operation-1771021716004-64abc20459efe-9897a15b-9bafe0bc","metadata":{"@type":"type.googleapis.com/google.firebase.dataconnect.v1.OperationMetadata","createTime":"2026-02-13T22:28:36.068115910Z","target":"projects/olive-447fa/locations/us-east4/services/quorum/schemas/main","verb":"update","requestedCancellation":false,"apiVersion":"v1"},"done":false}
+[debug] [2026-02-13T22:28:36.655Z] [LRO Poller] Retrying task index 0
+[debug] [2026-02-13T22:28:36.656Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:36.656Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:36.656Z] >>> [apiv2][query] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021716004-64abc20459efe-9897a15b-9bafe0bc [none]
+[debug] [2026-02-13T22:28:36.725Z] <<< [apiv2][status] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021716004-64abc20459efe-9897a15b-9bafe0bc 200
+[debug] [2026-02-13T22:28:36.725Z] <<< [apiv2][body] GET https://firebasedataconnect.googleapis.com/v1/projects/olive-447fa/locations/us-east4/operations/operation-1771021716004-64abc20459efe-9897a15b-9bafe0bc {"name":"projects/olive-447fa/locations/us-east4/operations/operation-1771021716004-64abc20459efe-9897a15b-9bafe0bc","metadata":{"@type":"type.googleapis.com/google.firebase.dataconnect.v1.OperationMetadata","createTime":"2026-02-13T22:28:36.068115910Z","endTime":"2026-02-13T22:28:36.292687840Z","target":"projects/olive-447fa/locations/us-east4/services/quorum/schemas/main","verb":"update","requestedCancellation":false,"apiVersion":"v1"},"done":true}
+[debug] [2026-02-13T22:28:36.726Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:36.726Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:36.726Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:36.726Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:36.726Z] >>> [apiv2][query] POST https://cloudaicompanion.googleapis.com/v1beta/projects/olive-447fa/locations/global/instances/default:completeTask [none]
+[debug] [2026-02-13T22:28:36.726Z] >>> [apiv2][body] POST https://cloudaicompanion.googleapis.com/v1beta/projects/olive-447fa/locations/global/instances/default:completeTask {"input":{"messages":[{"content":"Create 4 operations for an app using the instance schema with proper authentication.","author":"USER"}]},"experienceContext":{"experience":"/appeco/firebase/fdc-query-generator"},"clientContext":{"additionalContext":{"@type":"type.googleapis.com/google.cloud.cloudaicompanion.v1main.FirebaseChatRequestContext","fdcInfo":{"fdcServiceName":"projects/olive-447fa/locations/us-east4/services/quorum","requiresQuery":true}}}}
+[debug] [2026-02-13T22:28:36.727Z] >>> [apiv2][query] POST https://cloudaicompanion.googleapis.com/v1beta/projects/olive-447fa/locations/global/instances/default:completeTask [none]
+[debug] [2026-02-13T22:28:36.727Z] >>> [apiv2][body] POST https://cloudaicompanion.googleapis.com/v1beta/projects/olive-447fa/locations/global/instances/default:completeTask {"input":{"messages":[{"content":"Create a mutation to populate the database with some seed data.","author":"USER"}]},"experienceContext":{"experience":"/appeco/firebase/fdc-query-generator"},"clientContext":{"additionalContext":{"@type":"type.googleapis.com/google.cloud.cloudaicompanion.v1main.FirebaseChatRequestContext","fdcInfo":{"fdcServiceName":"projects/olive-447fa/locations/us-east4/services/quorum","requiresQuery":true}}}}
+[debug] [2026-02-13T22:28:42.649Z] <<< [apiv2][status] POST https://cloudaicompanion.googleapis.com/v1beta/projects/olive-447fa/locations/global/instances/default:completeTask 200
+[debug] [2026-02-13T22:28:42.649Z] <<< [apiv2][body] POST https://cloudaicompanion.googleapis.com/v1beta/projects/olive-447fa/locations/global/instances/default:completeTask {"output":{"messages":[{"content":"Here are four operations for your app, with proper authentication as per your schema and instructions:\n\n```graphql\nquery ListAllMovies @auth(level: PUBLIC, insecureReason: \"This operation is safe to expose to the public\") {\n  movies {\n    id\n    title\n    year\n    genres\n  }\n}\n\nquery MyMovieLists @auth(level: USER, insecureReason: \"This operation is safe to expose to all logged in users.\") {\n  movieLists(where: {userId: {eq_expr: \"auth.uid\"}}) {\n    id\n    name\n    description\n    isPublic\n    updatedAt\n  }\n}\n\nmutation CreateNewMovie($title: String!, $year: Int!, $genres: [String!], $runtimeMinutes: Int, $summary: String) @auth(level: USER, insecureReason: \"This operation is safe to expose to all logged in users.\") {\n  movie_insert(data: {\n    title: $title,\n    year: $year,\n    genres: $genres,\n    runtimeMinutes: $runtimeMinutes,\n    summary: $summary,\n    createdAt_expr: \"request.time\"\n  }) {\n    id\n  }\n}\n\nmutation AddMovieToMyList($movieListId: UUID!, $movieId: UUID!, $note: String, $position: Int!) @auth(level: USER, insecureReason: \"This operation is safe to expose to all logged in users.\") {\n  movieListEntry_insert(data: {\n    movieListId: $movieListId,\n    movieId: $movieId,\n    note: $note,\n    position: $position\n  }) {\n    movieListId\n    movieId\n  }\n}\n```\n\nThese operations provide a good starting point for your app's interactions with Firebase Data Connect:\n\n*   **`ListAllMovies`**: This query allows anyone (public) to fetch a list of all movies, displaying their ID, title, year, and genres. It's marked as public since there's no sensitive user data involved.\n\n*   **`MyMovieLists`**: This query allows a logged-in user to retrieve all movie lists they have created. It uses `auth.uid` to filter the results, ensuring that users can only see their own private movie lists. It includes basic details like ID, name, description, public status, and last update time.\n\n*   **`CreateNewMovie`**: This mutation allows a logged-in user to add a new movie to the database. It requires essential movie details like title and year, and optionally accepts genres, runtime, and a summary. The `createdAt_expr: \"request.time\"` ensures the creation timestamp is automatically set by the server.\n\n*   **`AddMovieToMyList`**: This mutation enables a logged-in user to add a specific movie to one of their existing movie lists. It requires the `movieListId` and `movieId` to link them, and allows for an optional `note` and a `position` within the list.\n\n### Follow-up questions:\n\n1.  How would I implement a query to get a specific movie list by its ID, including all the movies within that list?\n2.  Can you show me an example of how to update a user's display name, making sure only that user can update their own profile?\n3.  How would I fetch all reviews for a particular movie, ordered by the creation date?","author":"model"}]},"outputDataContext":{"additionalContext":{"@type":"type.googleapis.com/google.cloud.cloudaicompanion.v1main.ChatOutputDataContext","relatedContent":{}}},"attributionContext":{"citationMetadata":{}}}
+[debug] [2026-02-13T22:28:48.458Z] <<< [apiv2][status] POST https://cloudaicompanion.googleapis.com/v1beta/projects/olive-447fa/locations/global/instances/default:completeTask 200
+[debug] [2026-02-13T22:28:48.458Z] <<< [apiv2][body] POST https://cloudaicompanion.googleapis.com/v1beta/projects/olive-447fa/locations/global/instances/default:completeTask {"output":{"messages":[{"content":"You got it! Populating your database with seed data is a great way to get started and test your app. Let's create a mutation to do just that.\n\nHere's a GraphQL mutation that will insert some sample data into your `Movie`, `User`, `MovieList`, and `Review` tables. I've tried to keep it comprehensive to give you a good starting point for various entity types.\n\n```graphql\nmutation CreateDemoData @transaction @auth(level: PUBLIC, insecureReason: \"This is seed data intended for initial population, it's safe to be public for development purposes.\") {\n  user_insertMany(data: [\n    {\n      id: \"10000000-0000-0000-0000-000000000001\",\n      createdAt: \"2023-01-01T10:00:00Z\",\n      displayName: \"Alice Wonderland\",\n      email: \"alice@example.com\",\n      photoUrl: \"https://example.com/alice.jpg\"\n    },\n    {\n      id: \"10000000-0000-0000-0000-000000000002\",\n      createdAt: \"2023-01-02T11:00:00Z\",\n      displayName: \"Bob The Builder\",\n      email: \"bob@example.com\",\n      photoUrl: \"https://example.com/bob.jpg\"\n    }\n  ])\n  movie_insertMany(data: [\n    {\n      id: \"20000000-0000-0000-0000-000000000001\",\n      createdAt: \"2022-05-15T12:30:00Z\",\n      genres: [\"Action\", \"Sci-Fi\"],\n      runtimeMinutes: 148,\n      summary: \"A thrilling adventure in space.\",\n      title: \"Galactic Journey\",\n      year: 2022\n    },\n    {\n      id: \"20000000-0000-0000-0000-000000000002\",\n      createdAt: \"2021-11-20T09:00:00Z\",\n      genres: [\"Comedy\"],\n      runtimeMinutes: 95,\n      summary: \"A hilarious tale of mistaken identity.\",\n      title: \"Laugh Out Loud\",\n      year: 2021\n    }\n  ])\n  movieList_insertMany(data: [\n    {\n      id: \"30000000-0000-0000-0000-000000000001\",\n      userId: \"10000000-0000-0000-0000-000000000001\",\n      createdAt: \"2023-03-10T14:00:00Z\",\n      description: \"Alice's top picks for action movies.\",\n      isPublic: true,\n      name: \"Alice's Action Faves\",\n      updatedAt: \"2023-03-10T14:00:00Z\"\n    },\n    {\n      id: \"30000000-0000-0000-0000-000000000002\",\n      userId: \"10000000-0000-0000-0000-000000000002\",\n      createdAt: \"2023-04-05T16:00:00Z\",\n      description: \"Bob's collection of comedies.\",\n      isPublic: false,\n      name: \"Bob's Comedy Hour\",\n      updatedAt: \"2023-04-05T16:00:00Z\"\n    }\n  ])\n  movieListEntry_insertMany(data: [\n    {\n      movieListId: \"30000000-0000-0000-0000-000000000001\",\n      movieId: \"20000000-0000-0000-0000-000000000001\",\n      note: \"Must-watch for space opera fans!\",\n      position: 1\n    },\n    {\n      movieListId: \"30000000-0000-0000-0000-000000000002\",\n      movieId: \"20000000-0000-0000-0000-000000000002\",\n      note: \"Guaranteed to make you laugh.\",\n      position: 1\n    }\n  ])\n  watch_insertMany(data: [\n    {\n      id: \"40000000-0000-0000-0000-000000000001\",\n      movieId: \"20000000-0000-0000-0000-000000000001\",\n      userId: \"10000000-0000-0000-0000-000000000001\",\n      createdAt: \"2023-03-15T18:00:00Z\",\n      location: \"Home\",\n      watchDate: \"2023-03-15\"\n    },\n    {\n      id: \"40000000-0000-0000-0000-000000000002\",\n      movieId: \"20000000-0000-0000-0000-000000000002\",\n      userId: \"10000000-0000-0000-0000-000000000002\",\n      createdAt: \"2023-04-08T20:00:00Z\",\n      location: \"Friend's House\",\n      watchDate: \"2023-04-08\"\n    }\n  ])\n  review_insertMany(data: [\n    {\n      id: \"50000000-0000-0000-0000-000000000001\",\n      movieId: \"20000000-0000-0000-0000-000000000001\",\n      userId: \"10000000-0000-0000-0000-000000000001\",\n      watchId: \"40000000-0000-0000-0000-000000000001\",\n      createdAt: \"2023-03-16T10:00:00Z\",\n      isPublic: true,\n      rating: 5,\n      text: \"Absolutely loved it! The visuals were stunning.\",\n      updatedAt: \"2023-03-16T10:00:00Z\"\n    },\n    {\n      id: \"50000000-0000-0000-0000-000000000002\",\n      movieId: \"20000000-0000-0000-0000-000000000002\",\n      userId: \"10000000-0000-0000-0000-000000000002\",\n      watchId: \"40000000-0000-0000-0000-000000000002\",\n      createdAt: \"2023-04-09T11:00:00Z\",\n      isPublic: true,\n      rating: 4,\n      text: \"A real mood-lifter, highly recommend for a good laugh.\",\n      updatedAt: \"2023-04-09T11:00:00Z\"\n    }\n  ])\n}\n```\n\nThis mutation uses `_insertMany` for each table type (`User`, `Movie`, `MovieList`, `MovieListEntry`, `Watch`, `Review`) to insert multiple records in a single transaction. This ensures that all insertions either succeed or fail together, maintaining data consistency. I've hardcoded the IDs and other values since this is for seed data, as you requested.\n\nHere are a few follow-up questions you might consider:\n\n1.  How can I modify this mutation to update existing seed data instead of inserting new data?\n2.  What's the best way to integrate this seed data mutation into my CI/CD pipeline?\n3.  Can I use Firebase Data Connect to import data from a CSV or JSON file instead of writing manual `_insertMany` mutations?","author":"model"}]},"outputDataContext":{"additionalContext":{"@type":"type.googleapis.com/google.cloud.cloudaicompanion.v1main.ChatOutputDataContext","relatedContent":{}}},"attributionContext":{"citationMetadata":{}}}
+[info] ✔  Wrote dataconnect/dataconnect.yaml 
+[info] ✔  Wrote dataconnect/seed_data.gql 
+[info] ✔  Wrote dataconnect/schema/schema.gql 
+[info] ✔  Wrote dataconnect/example/connector.yaml 
+[info] ✔  Wrote dataconnect/example/queries.gql 
+[info] ✔  Wrote dataconnect/example/connector.yaml 
+[info] i  dataconnect: Installing the generated SDKs ... 
+[info] i  dataconnect: downloading dataconnect-emulator-3.1.3... {"metadata":{"emulator":{"name":"dataconnect"},"message":"downloading dataconnect-emulator-3.1.3..."}}
+[debug] [2026-02-13T22:28:48.517Z] >>> [apiv2][query] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-macos-arm64-v3.1.3 
+[debug] [2026-02-13T22:28:48.666Z] <<< [apiv2][status] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-macos-arm64-v3.1.3 200
+[debug] [2026-02-13T22:28:48.666Z] <<< [apiv2][body] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-macos-arm64-v3.1.3 [stream]
+[debug] [2026-02-13T22:28:49.142Z] defaultcredentials: writing to file /Users/osimac/.config/firebase/glocky200_gmail_com_application_default_credentials.json
+[error] ⬢  dataconnect: Failed to generate Data Connect SDKs
+Command failed with exit code 1 
+[info] ✔  dataconnect: Installed generated SDKs for android/app (android), ios (ios), ios/Pods (ios), . (web) 
+[info] i  Please follow the instructions here to add your generated sdk to your XCode project:
+	https://firebase.google.com/docs/data-connect/ios-sdk#set-client 
+[info] i  Visit https://firebase.google.com/docs/data-connect/web-sdk#react for more information on how to set up React Generated SDKs for Firebase Data Connect 
+[info] 
+=== Firestore Setup
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[debug] [2026-02-13T22:28:49.632Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:49.632Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:49.632Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/firestore.googleapis.com [none]
+[debug] [2026-02-13T22:28:49.632Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/firestore.googleapis.com  x-goog-user-project=olive-447fa
+[debug] [2026-02-13T22:28:49.874Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/firestore.googleapis.com 200
+[debug] [2026-02-13T22:28:49.874Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/firestore.googleapis.com [omitted]
+[info] ✔  firestore: required API firestore.googleapis.com is enabled 
+[debug] [2026-02-13T22:28:49.894Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:49.894Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:49.894Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/olive-447fa/databases [none]
+[debug] [2026-02-13T22:28:50.264Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/olive-447fa/databases 200
+[debug] [2026-02-13T22:28:50.264Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/olive-447fa/databases {"databases":[{"name":"projects/olive-447fa/databases/(default)","uid":"fd5bdb38-99a9-4f4d-b6cd-c49ef1fec58b","createTime":"2026-02-13T19:32:04.549798Z","updateTime":"2026-02-13T19:32:04.549798Z","locationId":"nam5","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2026-02-13T21:28:50.282324Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"s","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","databaseEdition":"STANDARD","freeTier":true,"realtimeUpdatesMode":"REALTIME_UPDATES_MODE_ENABLED","etag":"INzI8IjC15IDMM76wYSb15ID"}]}
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2026-02-13T22:28:57.757Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:57.757Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:57.758Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/olive-447fa/releases pageSize=10&pageToken=
+[debug] [2026-02-13T22:28:57.878Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/olive-447fa/releases 200
+[debug] [2026-02-13T22:28:57.878Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/olive-447fa/releases {"releases":[{"name":"projects/olive-447fa/releases/cloud.firestore","rulesetName":"projects/olive-447fa/rulesets/796da603-a1c1-4955-9149-82c5b0d3e0e2","createTime":"2026-02-13T19:32:11.365866Z","updateTime":"2026-02-13T19:32:11.365866Z"}]}
+[debug] [2026-02-13T22:28:57.879Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:57.879Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:57.879Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/olive-447fa/rulesets/796da603-a1c1-4955-9149-82c5b0d3e0e2 [none]
+[debug] [2026-02-13T22:28:57.952Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/olive-447fa/rulesets/796da603-a1c1-4955-9149-82c5b0d3e0e2 200
+[debug] [2026-02-13T22:28:57.952Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/olive-447fa/rulesets/796da603-a1c1-4955-9149-82c5b0d3e0e2 [omitted]
+[info] i  Downloaded the existing Firestore Security Rules from the Firebase console 
+[info] 
+[info] Firestore indexes allow you to perform complex queries while
+[info] maintaining performance that scales with the size of the result
+[info] set. You can keep index definitions in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2026-02-13T22:28:59.031Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:59.031Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:59.032Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:59.032Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:28:59.032Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/olive-447fa/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2026-02-13T22:28:59.034Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/olive-447fa/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2026-02-13T22:28:59.165Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/olive-447fa/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2026-02-13T22:28:59.165Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/olive-447fa/databases/(default)/collectionGroups/-/indexes {}
+[debug] [2026-02-13T22:28:59.166Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/olive-447fa/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2026-02-13T22:28:59.166Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/olive-447fa/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/olive-447fa/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[info] i  Downloaded the existing Firestore indexes from the Firebase console 
+[info] ✔  Wrote firestore.rules 
+[info] ✔  Wrote firestore.indexes.json 
+[info] 
+=== Genkit Setup
+[debug] [2026-02-13T22:29:01.787Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-13T22:29:01.787Z] > authorizing via signed-in user (glocky200@gmail.com)
+[debug] [2026-02-13T22:29:01.787Z] [iam] checking project olive-447fa for permissions ["firebase.projects.get"]
+[debug] [2026-02-13T22:29:01.787Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:29:01.787Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:29:01.787Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/olive-447fa:testIamPermissions [none]
+[debug] [2026-02-13T22:29:01.787Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/olive-447fa:testIamPermissions  x-goog-user-project=olive-447fa
+[debug] [2026-02-13T22:29:01.787Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/olive-447fa:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2026-02-13T22:29:01.910Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/olive-447fa:testIamPermissions 200
+[debug] [2026-02-13T22:29:01.910Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/olive-447fa:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2026-02-13T22:29:01.910Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:29:01.910Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:29:01.911Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:29:01.911Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:29:01.911Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/cloudfunctions.googleapis.com [none]
+[debug] [2026-02-13T22:29:01.911Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/cloudfunctions.googleapis.com  x-goog-user-project=olive-447fa
+[debug] [2026-02-13T22:29:01.913Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/runtimeconfig.googleapis.com [none]
+[debug] [2026-02-13T22:29:01.913Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/runtimeconfig.googleapis.com  x-goog-user-project=olive-447fa
+[debug] [2026-02-13T22:29:02.132Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/runtimeconfig.googleapis.com 200
+[debug] [2026-02-13T22:29:02.132Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2026-02-13T22:29:02.149Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/cloudfunctions.googleapis.com 200
+[debug] [2026-02-13T22:29:02.149Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2026-02-13T22:29:02.149Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:29:02.149Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:29:02.149Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/cloudfunctions.googleapis.com:enable [none]
+[debug] [2026-02-13T22:29:02.149Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/cloudfunctions.googleapis.com:enable  x-goog-user-project=olive-447fa
+[debug] [2026-02-13T22:29:02.420Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/cloudfunctions.googleapis.com:enable 200
+[debug] [2026-02-13T22:29:02.420Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/olive-447fa/services/cloudfunctions.googleapis.com:enable [omitted]
+[info] Let's create a new codebase for your functions.
+[info] A directory corresponding to the codebase will be created in your project
+[info] with sample code pre-configured.
+
+[info] See https://firebase.google.com/docs/functions/organize-functions for
+[info] more information on organizing your functions using codebases.
+
+[info] Functions can be deployed with firebase deploy.
+
+[info] ✔  Wrote functions/.eslintrc.js 
+[info] ✔  Wrote functions/tsconfig.dev.json 
+[info] ✔  Wrote functions/package.json 
+[info] ✔  Wrote functions/tsconfig.json 
+[info] ✔  Wrote functions/src/index.ts 
+[info] ✔  Wrote functions/.gitignore 
+[info] 
+[info] i  genkit: Installing Genkit CLI version 1.28.0
+ 
+[info] i  genkit: Installing NPM packages for genkit 
+[info] ✔  genkit: Successfully installed NPM packages 
+[info] i  genkit: Updating tsconfig.json 
+[info] ✔  genkit: Successfully updated tsconfig.json 
+[info] i  genkit: Updating package.json 
+[info] ✔  genkit: Successfully updated package.json 
+[info] 
+[info] 
+Login to Google Cloud using:
+[info]     gcloud auth application-default login --project olive-447fa
+
+[info] Then start the Genkit developer experience by running:
+[info]     cd functions && npm run genkit:start
+[info] 
+=== Functions Setup
+[debug] [2026-02-13T22:43:48.839Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-13T22:43:48.840Z] > authorizing via signed-in user (glocky200@gmail.com)
+[debug] [2026-02-13T22:43:48.840Z] [iam] checking project olive-447fa for permissions ["firebase.projects.get"]
+[debug] [2026-02-13T22:43:48.840Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:43:48.842Z] Checked if tokens are valid: true, expires at: 1771025142866
+[debug] [2026-02-13T22:43:48.842Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/olive-447fa:testIamPermissions [none]
+[debug] [2026-02-13T22:43:48.842Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/olive-447fa:testIamPermissions  x-goog-user-project=olive-447fa
+[debug] [2026-02-13T22:43:48.842Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/olive-447fa:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2026-02-13T22:43:48.973Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/olive-447fa:testIamPermissions 200
+[debug] [2026-02-13T22:43:48.973Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/olive-447fa:testIamPermissions {"permissions":["firebase.projects.get"]}
+[info] 
+Detected existing codebase(s): default
+
+[info] Let's create a new codebase for your functions.
+[info] A directory corresponding to the codebase will be created in your project
+[info] with sample code pre-configured.
+
+[info] See https://firebase.google.com/docs/functions/organize-functions for
+[info] more information on organizing your functions using codebases.
+
+[info] Functions can be deployed with firebase deploy.
+
+[error] Invalid codebase name. Codebase must be less than 64 characters and can contain only lowercase letters, numeric characters, underscores, and dashes.
+[debug] [2026-02-13T23:02:51.382Z] Error: write EIO
+    at afterWriteDispatched (node:internal/stream_base_commons:161:15)
+    at writeGeneric (node:internal/stream_base_commons:152:3)
+    at Socket._writeGeneric (node:net:958:11)
+    at Socket._write (node:net:970:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at MuteStream.ondata (node:internal/streams/legacy:21:31)
+    at MuteStream.emit (node:events:524:28)
+    at MuteStream.write (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/mute-stream/lib/index.js:112:10)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-02-13T23:02:51.387Z] Error: write EIO
+    at afterWriteDispatched (node:internal/stream_base_commons:161:15)
+    at writeGeneric (node:internal/stream_base_commons:152:3)
+    at Socket._writeGeneric (node:net:958:11)
+    at Socket._write (node:net:970:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at Console.log (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston/lib/winston/transports/console.js:87:23)
+    at Console._write (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston-transport/modern.js:103:17)
+    at doWrite (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston-transport/node_modules/readable-stream/lib/_stream_writable.js:390:139)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-02-13T23:02:51.387Z] Error: write EIO
+    at afterWriteDispatched (node:internal/stream_base_commons:161:15)
+    at writeGeneric (node:internal/stream_base_commons:152:3)
+    at Socket._writeGeneric (node:net:958:11)
+    at Socket._write (node:net:970:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at Console.log (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston/lib/winston/transports/console.js:87:23)
+    at Console._write (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston-transport/modern.js:103:17)
+    at doWrite (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston-transport/node_modules/readable-stream/lib/_stream_writable.js:390:139)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-02-13T23:02:51.387Z] Error: write EIO
+    at afterWriteDispatched (node:internal/stream_base_commons:161:15)
+    at writeGeneric (node:internal/stream_base_commons:152:3)
+    at Socket._writeGeneric (node:net:958:11)
+    at Socket._write (node:net:970:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at Console.log (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston/lib/winston/transports/console.js:87:23)
+    at Console._write (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston-transport/modern.js:103:17)
+    at doWrite (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston-transport/node_modules/readable-stream/lib/_stream_writable.js:390:139)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-02-13T23:02:51.387Z] Error: write EIO
+    at afterWriteDispatched (node:internal/stream_base_commons:161:15)
+    at writeGeneric (node:internal/stream_base_commons:152:3)
+    at Socket._writeGeneric (node:net:958:11)
+    at Socket._write (node:net:970:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at Console.log (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston/lib/winston/transports/console.js:87:23)
+    at Console._write (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston-transport/modern.js:103:17)
+    at doWrite (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston-transport/node_modules/readable-stream/lib/_stream_writable.js:390:139)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-02-13T23:02:51.387Z] Error: write EIO
+    at afterWriteDispatched (node:internal/stream_base_commons:161:15)
+    at writeGeneric (node:internal/stream_base_commons:152:3)
+    at Socket._writeGeneric (node:net:958:11)
+    at Socket._write (node:net:970:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at Console.log (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston/lib/winston/transports/console.js:87:23)
+    at Console._write (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston-transport/modern.js:103:17)
+    at doWrite (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston-transport/node_modules/readable-stream/lib/_stream_writable.js:390:139)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-02-13T23:02:51.387Z] Error: write EIO
+    at afterWriteDispatched (node:internal/stream_base_commons:161:15)
+    at writeGeneric (node:internal/stream_base_commons:152:3)
+    at Socket._writeGeneric (node:net:958:11)
+    at Socket._write (node:net:970:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at Console.log (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston/lib/winston/transports/console.js:87:23)
+    at Console._write (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston-transport/modern.js:103:17)
+    at doWrite (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston-transport/node_modules/readable-stream/lib/_stream_writable.js:390:139)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-02-13T23:02:51.387Z] Error: write EIO
+    at afterWriteDispatched (node:internal/stream_base_commons:161:15)
+    at writeGeneric (node:internal/stream_base_commons:152:3)
+    at Socket._writeGeneric (node:net:958:11)
+    at Socket._write (node:net:970:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at Console.log (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston/lib/winston/transports/console.js:87:23)
+    at Console._write (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston-transport/modern.js:103:17)
+    at doWrite (/opt/homebrew/lib/node_modules/firebase-tools/node_modules/winston-transport/node_modules/readable-stream/lib/_stream_writable.js:390:139)
+[error] 
+[error] Error: An unexpected error has occurred.

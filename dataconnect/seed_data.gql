@@ -1,0 +1,114 @@
+mutation CreateDemoData @transaction @auth(level: PUBLIC, insecureReason: "This is seed data intended for initial population, it's safe to be public for development purposes.") {
+  user_insertMany(data: [
+    {
+      id: "10000000-0000-0000-0000-000000000001",
+      createdAt: "2023-01-01T10:00:00Z",
+      displayName: "Alice Wonderland",
+      email: "alice@example.com",
+      photoUrl: "https://example.com/alice.jpg"
+    },
+    {
+      id: "10000000-0000-0000-0000-000000000002",
+      createdAt: "2023-01-02T11:00:00Z",
+      displayName: "Bob The Builder",
+      email: "bob@example.com",
+      photoUrl: "https://example.com/bob.jpg"
+    }
+  ])
+  movie_insertMany(data: [
+    {
+      id: "20000000-0000-0000-0000-000000000001",
+      createdAt: "2022-05-15T12:30:00Z",
+      genres: ["Action", "Sci-Fi"],
+      runtimeMinutes: 148,
+      summary: "A thrilling adventure in space.",
+      title: "Galactic Journey",
+      year: 2022
+    },
+    {
+      id: "20000000-0000-0000-0000-000000000002",
+      createdAt: "2021-11-20T09:00:00Z",
+      genres: ["Comedy"],
+      runtimeMinutes: 95,
+      summary: "A hilarious tale of mistaken identity.",
+      title: "Laugh Out Loud",
+      year: 2021
+    }
+  ])
+  movieList_insertMany(data: [
+    {
+      id: "30000000-0000-0000-0000-000000000001",
+      userId: "10000000-0000-0000-0000-000000000001",
+      createdAt: "2023-03-10T14:00:00Z",
+      description: "Alice's top picks for action movies.",
+      isPublic: true,
+      name: "Alice's Action Faves",
+      updatedAt: "2023-03-10T14:00:00Z"
+    },
+    {
+      id: "30000000-0000-0000-0000-000000000002",
+      userId: "10000000-0000-0000-0000-000000000002",
+      createdAt: "2023-04-05T16:00:00Z",
+      description: "Bob's collection of comedies.",
+      isPublic: false,
+      name: "Bob's Comedy Hour",
+      updatedAt: "2023-04-05T16:00:00Z"
+    }
+  ])
+  movieListEntry_insertMany(data: [
+    {
+      movieListId: "30000000-0000-0000-0000-000000000001",
+      movieId: "20000000-0000-0000-0000-000000000001",
+      note: "Must-watch for space opera fans!",
+      position: 1
+    },
+    {
+      movieListId: "30000000-0000-0000-0000-000000000002",
+      movieId: "20000000-0000-0000-0000-000000000002",
+      note: "Guaranteed to make you laugh.",
+      position: 1
+    }
+  ])
+  watch_insertMany(data: [
+    {
+      id: "40000000-0000-0000-0000-000000000001",
+      movieId: "20000000-0000-0000-0000-000000000001",
+      userId: "10000000-0000-0000-0000-000000000001",
+      createdAt: "2023-03-15T18:00:00Z",
+      location: "Home",
+      watchDate: "2023-03-15"
+    },
+    {
+      id: "40000000-0000-0000-0000-000000000002",
+      movieId: "20000000-0000-0000-0000-000000000002",
+      userId: "10000000-0000-0000-0000-000000000002",
+      createdAt: "2023-04-08T20:00:00Z",
+      location: "Friend's House",
+      watchDate: "2023-04-08"
+    }
+  ])
+  review_insertMany(data: [
+    {
+      id: "50000000-0000-0000-0000-000000000001",
+      movieId: "20000000-0000-0000-0000-000000000001",
+      userId: "10000000-0000-0000-0000-000000000001",
+      watchId: "40000000-0000-0000-0000-000000000001",
+      createdAt: "2023-03-16T10:00:00Z",
+      isPublic: true,
+      rating: 5,
+      text: "Absolutely loved it! The visuals were stunning.",
+      updatedAt: "2023-03-16T10:00:00Z"
+    },
+    {
+      id: "50000000-0000-0000-0000-000000000002",
+      movieId: "20000000-0000-0000-0000-000000000002",
+      userId: "10000000-0000-0000-0000-000000000002",
+      watchId: "40000000-0000-0000-0000-000000000002",
+      createdAt: "2023-04-09T11:00:00Z",
+      isPublic: true,
+      rating: 4,
+      text: "A real mood-lifter, highly recommend for a good laugh.",
+      updatedAt: "2023-04-09T11:00:00Z"
+    }
+  ])
+}
