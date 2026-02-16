@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {FeedScreen} from './src/screens';
 import {ClubsScreen} from './src/screens';
 import {ProfileScreen} from './src/screens';
@@ -316,13 +317,15 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <View style={styles.root}>
-      <ErrorBoundary>
-        <AuthProvider>
-          <AppContent />
-        </AuthProvider>
-      </ErrorBoundary>
-    </View>
+    <SafeAreaProvider>
+      <View style={styles.root}>
+        <ErrorBoundary>
+          <AuthProvider>
+            <AppContent />
+          </AuthProvider>
+        </ErrorBoundary>
+      </View>
+    </SafeAreaProvider>
   );
 };
 
