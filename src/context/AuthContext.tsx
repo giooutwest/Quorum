@@ -6,7 +6,7 @@ import {
   signOut as firebaseSignOut,
   User,
 } from 'firebase/auth';
-import {doc, setDoc, getDoc, updateDoc, serverTimestamp} from 'firebase/firestore';
+import {doc, setDoc, getDoc, updateDoc, serverTimestamp, collection, query, where, getDocs} from 'firebase/firestore';
 import {auth, db} from '../firebase';
 
 interface AuthContextType {
@@ -14,10 +14,12 @@ interface AuthContextType {
   isLoading: boolean;
   hasSeenOnboarding: boolean;
   userName: string;
+  userUsername: string;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, name: string) => Promise<void>;
+  signUp: (email: string, password: string, name: string, username: string) => Promise<void>;
   signOut: () => Promise<void>;
   completeOnboarding: () => Promise<void>;
+  searchUsers: (searchQuery: string) => Promise<{id: string; name: string; username: string}[]>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -27,6 +29,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
   const [isLoading, setIsLoading] = useState(true);
   const [hasSeenOnboarding, setHasSeenOnboarding] = useState(true);
   const [userName, setUserName] = useState('');
+  const [userUsername, setUserUsername] = useState('');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async firebaseUser => {
@@ -38,6 +41,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             const data = userDoc.data();
             setHasSeenOnboarding(data.hasSeenOnboarding ?? true);
             setUserName(data.name ?? '');
+            setUserUsername(data.username ?? '');
           }
         } catch {
           // If we can't read the doc, assume onboarding is done
@@ -45,6 +49,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
       } else {
         setHasSeenOnboarding(true);
         setUserName('');
+        setUserUsername('');
       }
       setIsLoading(false);
     });
@@ -55,15 +60,17 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     await signInWithEmailAndPassword(auth, email, password);
   }, []);
 
-  const signUp = useCallback(async (email: string, password: string, name: string) => {
+  const signUp = useCallback(async (email: string, password: string, name: string, username: string) => {
     const credential = await createUserWithEmailAndPassword(auth, email, password);
     await setDoc(doc(db, 'users', credential.user.uid), {
       email,
       name,
+      username: username.toLowerCase(),
       createdAt: serverTimestamp(),
       hasSeenOnboarding: false,
     });
     setUserName(name);
+    setUserUsername(username.toLowerCase());
     setHasSeenOnboarding(false);
   }, []);
 
@@ -79,6 +86,34 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     setHasSeenOnboarding(true);
   }, [user]);
 
+  const searchUsers = useCallback(async (searchQuery: string) => {
+    if (!searchQuery.trim()) return [];
+    const q = searchQuery.toLowerCase().trim();
+    try {
+      const usersRef = collection(db, 'users');
+      const usernameQuery = query(
+        usersRef,
+        where('username', '>=', q),
+        where('username', '<=', q + '\uf8ff'),
+      );
+      const snapshot = await getDocs(usernameQuery);
+      const results: {id: string; name: string; username: string}[] = [];
+      snapshot.forEach(docSnap => {
+        if (docSnap.id !== user?.uid) {
+          const data = docSnap.data();
+          results.push({
+            id: docSnap.id,
+            name: data.name ?? '',
+            username: data.username ?? '',
+          });
+        }
+      });
+      return results;
+    } catch {
+      return [];
+    }
+  }, [user]);
+
   return (
     <AuthContext.Provider
       value={{
@@ -86,10 +121,12 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
         isLoading,
         hasSeenOnboarding,
         userName,
+        userUsername,
         signIn,
         signUp,
         signOut,
         completeOnboarding,
+        searchUsers,
       }}>
       {children}
     </AuthContext.Provider>

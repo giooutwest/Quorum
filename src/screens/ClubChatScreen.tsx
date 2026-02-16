@@ -1,8 +1,9 @@
-import React from 'react';
-import {View, FlatList, Text, StyleSheet, Pressable} from 'react-native';
+import React, {useState, useCallback} from 'react';
+import {View, FlatList, Text, TextInput, StyleSheet, Pressable, Modal} from 'react-native';
 import {Club, ClubMessage} from '@app-types';
 import {Colors, Typography, Spacing} from '@theme';
 import MarbleCard from '@components/MarbleCard';
+import {useAuth} from '../context/AuthContext';
 
 const formatCurrency = (cents: number): string => {
   const dollars = cents / 100;
@@ -118,10 +119,225 @@ const msgStyles = StyleSheet.create({
   },
 });
 
+// --- Add Friends Modal ---
+
+const AddFriendsModal: React.FC<{visible: boolean; onClose: () => void}> = ({visible, onClose}) => {
+  const {searchUsers} = useAuth();
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState<{id: string; name: string; username: string}[]>([]);
+  const [invited, setInvited] = useState<Set<string>>(new Set());
+  const [searching, setSearching] = useState(false);
+
+  const handleSearch = useCallback(async (text: string) => {
+    setQuery(text);
+    if (text.trim().length < 2) {
+      setResults([]);
+      return;
+    }
+    setSearching(true);
+    try {
+      const users = await searchUsers(text.trim());
+      setResults(users);
+    } catch {
+      setResults([]);
+    } finally {
+      setSearching(false);
+    }
+  }, [searchUsers]);
+
+  const handleInvite = useCallback((userId: string) => {
+    setInvited(prev => {
+      const next = new Set(prev);
+      next.add(userId);
+      return next;
+    });
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setQuery('');
+    setResults([]);
+    setInvited(new Set());
+    onClose();
+  }, [onClose]);
+
+  return (
+    <Modal visible={visible} animationType="slide" transparent>
+      <View style={addStyles.overlay}>
+        <View style={addStyles.sheet}>
+          {/* Header */}
+          <View style={addStyles.header}>
+            <Text style={addStyles.title}>Add friends</Text>
+            <Pressable onPress={handleClose} style={addStyles.closeBtn}>
+              <Text style={addStyles.closeText}>Done</Text>
+            </Pressable>
+          </View>
+
+          {/* Search input */}
+          <View style={addStyles.searchBar}>
+            <TextInput
+              style={addStyles.searchInput}
+              placeholder="Search by username..."
+              placeholderTextColor={Colors.textTertiary}
+              value={query}
+              onChangeText={handleSearch}
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </View>
+
+          {/* Results */}
+          {searching && (
+            <Text style={addStyles.statusText}>Searching...</Text>
+          )}
+          {!searching && query.length >= 2 && results.length === 0 && (
+            <Text style={addStyles.statusText}>No users found</Text>
+          )}
+          <FlatList
+            data={results}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => {
+              const isInvited = invited.has(item.id);
+              return (
+                <View style={addStyles.resultRow}>
+                  <View style={addStyles.resultAvatar}>
+                    <Text style={addStyles.resultInitial}>
+                      {item.name.charAt(0).toUpperCase()}
+                    </Text>
+                  </View>
+                  <View style={addStyles.resultInfo}>
+                    <Text style={addStyles.resultName}>{item.name}</Text>
+                    <Text style={addStyles.resultUsername}>@{item.username}</Text>
+                  </View>
+                  <Pressable
+                    style={[addStyles.inviteBtn, isInvited && addStyles.invitedBtn]}
+                    onPress={() => handleInvite(item.id)}
+                    disabled={isInvited}>
+                    <Text style={[addStyles.inviteText, isInvited && addStyles.invitedText]}>
+                      {isInvited ? 'Invited' : 'Invite'}
+                    </Text>
+                  </Pressable>
+                </View>
+              );
+            }}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
+const addStyles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'flex-end',
+  },
+  sheet: {
+    backgroundColor: Colors.backgroundPrimary,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    maxHeight: '70%',
+    paddingBottom: Spacing.xl,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.md,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.borderLight,
+  },
+  title: {
+    ...Typography.headerMedium,
+    color: Colors.textPrimary,
+  },
+  closeBtn: {
+    padding: Spacing.xs,
+  },
+  closeText: {
+    ...Typography.bodyMedium,
+    color: Colors.accent,
+    fontWeight: '600',
+  },
+  searchBar: {
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.md,
+  },
+  searchInput: {
+    ...Typography.bodyMedium,
+    color: Colors.textPrimary,
+    backgroundColor: Colors.backgroundMarble,
+    borderRadius: 8,
+    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.md,
+  },
+  statusText: {
+    ...Typography.bodySmall,
+    color: Colors.textTertiary,
+    textAlign: 'center',
+    paddingVertical: Spacing.lg,
+  },
+  resultRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.sm,
+  },
+  resultAvatar: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: Colors.primaryBlack,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: Spacing.md,
+  },
+  resultInitial: {
+    ...Typography.bodySmall,
+    color: Colors.textOnPrimary,
+    fontWeight: '700',
+  },
+  resultInfo: {
+    flex: 1,
+  },
+  resultName: {
+    ...Typography.headerSmall,
+    color: Colors.textPrimary,
+  },
+  resultUsername: {
+    ...Typography.bodySmall,
+    color: Colors.textTertiary,
+  },
+  inviteBtn: {
+    paddingVertical: Spacing.xs,
+    paddingHorizontal: Spacing.md,
+    borderWidth: 1.5,
+    borderColor: Colors.accent,
+    borderRadius: 6,
+  },
+  invitedBtn: {
+    borderColor: Colors.borderLight,
+    backgroundColor: Colors.backgroundMarble,
+  },
+  inviteText: {
+    ...Typography.bodySmall,
+    color: Colors.accent,
+    fontWeight: '600',
+  },
+  invitedText: {
+    color: Colors.textTertiary,
+  },
+});
+
+// --- Main screen ---
+
 const ClubChatScreen: React.FC<ClubChatScreenProps> = ({club, onBack}) => {
   const {deal} = club;
   const progress = deal.committed / deal.totalPool;
   const isFunded = deal.status === 'funded' || deal.status === 'active';
+  const [showAddFriends, setShowAddFriends] = useState(false);
 
   const renderHeader = () => (
     <View>
@@ -170,7 +386,15 @@ const ClubChatScreen: React.FC<ClubChatScreenProps> = ({club, onBack}) => {
 
       {/* Members strip */}
       <View style={styles.membersStrip}>
-        <Text style={styles.membersLabel}>Friends</Text>
+        <View style={styles.membersHeader}>
+          <Text style={styles.membersLabel}>Friends</Text>
+          <Pressable
+            style={styles.addFriendBtn}
+            onPress={() => setShowAddFriends(true)}>
+            <Text style={styles.addFriendPlus}>+</Text>
+            <Text style={styles.addFriendText}>Add</Text>
+          </Pressable>
+        </View>
         <View style={styles.membersRow}>
           {club.members.map(member => (
             <View key={member.id} style={styles.memberChip}>
@@ -222,6 +446,12 @@ const ClubChatScreen: React.FC<ClubChatScreenProps> = ({club, onBack}) => {
           <Text style={styles.inputPlaceholder}>Message {club.name}...</Text>
         </View>
       </View>
+
+      {/* Add friends modal */}
+      <AddFriendsModal
+        visible={showAddFriends}
+        onClose={() => setShowAddFriends(false)}
+      />
     </View>
   );
 };
@@ -358,12 +588,39 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: Colors.borderLight,
   },
+  membersHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: Spacing.sm,
+  },
   membersLabel: {
     ...Typography.bodySmall,
     color: Colors.textTertiary,
     letterSpacing: 0.3,
     fontWeight: '600',
-    marginBottom: Spacing.sm,
+  },
+  addFriendBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingVertical: 3,
+    paddingHorizontal: 10,
+    borderWidth: 1.5,
+    borderColor: Colors.accent,
+    borderRadius: 6,
+  },
+  addFriendPlus: {
+    ...Typography.bodyMedium,
+    color: Colors.accent,
+    fontWeight: '700',
+    fontSize: 16,
+    marginTop: -1,
+  },
+  addFriendText: {
+    ...Typography.bodySmall,
+    color: Colors.accent,
+    fontWeight: '600',
   },
   membersRow: {
     flexDirection: 'row',

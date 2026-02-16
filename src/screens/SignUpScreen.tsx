@@ -21,14 +21,19 @@ interface SignUpScreenProps {
 const SignUpScreen: React.FC<SignUpScreenProps> = ({navigation}) => {
   const {signUp} = useAuth();
   const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSignUp = useCallback(async () => {
-    if (!name.trim() || !email.trim() || !password) {
+    if (!name.trim() || !username.trim() || !email.trim() || !password) {
       setError('Please fill in all fields.');
+      return;
+    }
+    if (!/^[a-zA-Z0-9_]{3,20}$/.test(username.trim())) {
+      setError('Username must be 3-20 characters (letters, numbers, underscores).');
       return;
     }
     if (password.length < 6) {
@@ -38,7 +43,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({navigation}) => {
     setError('');
     setLoading(true);
     try {
-      await signUp(email.trim(), password, name.trim());
+      await signUp(email.trim(), password, name.trim(), username.trim());
     } catch (e: any) {
       const code = e?.code;
       if (code === 'auth/email-already-in-use') {
@@ -53,7 +58,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({navigation}) => {
     } finally {
       setLoading(false);
     }
-  }, [name, email, password, signUp]);
+  }, [name, username, email, password, signUp]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -79,6 +84,15 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({navigation}) => {
               value={name}
               onChangeText={setName}
               autoCapitalize="words"
+              autoCorrect={false}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Username"
+              placeholderTextColor={Colors.textTertiary}
+              value={username}
+              onChangeText={(text) => setUsername(text.replace(/[^a-zA-Z0-9_]/g, ''))}
+              autoCapitalize="none"
               autoCorrect={false}
             />
             <TextInput
