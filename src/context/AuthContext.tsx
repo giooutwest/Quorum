@@ -19,6 +19,7 @@ interface AuthContextType {
   signUp: (email: string, password: string, name: string, username: string) => Promise<void>;
   signOut: () => Promise<void>;
   completeOnboarding: () => Promise<void>;
+  updateProfile: (name: string, username: string) => Promise<void>;
   searchUsers: (searchQuery: string) => Promise<{id: string; name: string; username: string}[]>;
 }
 
@@ -78,6 +79,14 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     await firebaseSignOut(auth);
   }, []);
 
+  const updateProfile = useCallback(async (name: string, username: string) => {
+    if (!user) return;
+    const lower = username.toLowerCase();
+    await updateDoc(doc(db, 'users', user.uid), {name, username: lower});
+    setUserName(name);
+    setUserUsername(lower);
+  }, [user]);
+
   const completeOnboarding = useCallback(async () => {
     if (!user) return;
     await updateDoc(doc(db, 'users', user.uid), {
@@ -126,6 +135,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
         signUp,
         signOut,
         completeOnboarding,
+        updateProfile,
         searchUsers,
       }}>
       {children}

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {View, ScrollView, Text, StyleSheet, Pressable} from 'react-native';
+import {View, ScrollView, Text, StyleSheet, Pressable, Modal, TextInput} from 'react-native';
 import {MarbleCard, OliveLogo} from '@components';
 import {Colors, Typography, Spacing} from '@theme';
 import LinearGradient from 'react-native-linear-gradient';
@@ -103,8 +103,13 @@ const pieStyles = StyleSheet.create({
 });
 
 const ProfileScreen: React.FC = () => {
-  const {user, userName, signOut} = useAuth();
+  const {user, userName, userUsername, signOut, updateProfile} = useAuth();
   const [pledges, setPledges] = useState<Pledge[]>([]);
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [editName, setEditName] = useState('');
+  const [editUsername, setEditUsername] = useState('');
+  const [editError, setEditError] = useState('');
+  const [editLoading, setEditLoading] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -127,7 +132,35 @@ const ProfileScreen: React.FC = () => {
     } catch {}
   }, [signOut]);
 
-  const emailHandle = user?.email ? `@${user.email.split('@')[0]}` : '';
+  const profileHandle = userUsername ? `@${userUsername}` : (user?.email ? `@${user.email.split('@')[0]}` : '');
+
+  const openEditModal = useCallback(() => {
+    setEditName(userName || '');
+    setEditUsername(userUsername || '');
+    setEditError('');
+    setEditModalVisible(true);
+  }, [userName, userUsername]);
+
+  const handleSaveProfile = useCallback(async () => {
+    if (!editName.trim()) {
+      setEditError('Name is required.');
+      return;
+    }
+    if (!/^[a-zA-Z0-9_]{3,20}$/.test(editUsername.trim())) {
+      setEditError('Username must be 3-20 characters (letters, numbers, underscores).');
+      return;
+    }
+    setEditError('');
+    setEditLoading(true);
+    try {
+      await updateProfile(editName.trim(), editUsername.trim());
+      setEditModalVisible(false);
+    } catch {
+      setEditError('Failed to update profile. Try again.');
+    } finally {
+      setEditLoading(false);
+    }
+  }, [editName, editUsername, updateProfile]);
 
   // Pie chart data
   const categoryTotals: Record<string, number> = {};
@@ -161,7 +194,7 @@ const ProfileScreen: React.FC = () => {
           </LinearGradient>
 
           <Text style={styles.profileName}>{userName || 'Investor'}</Text>
-          <Text style={styles.profileHandle}>{emailHandle}</Text>
+          <Text style={styles.profileHandle}>{profileHandle}</Text>
 
           {/* Stats row */}
           <View style={styles.statsRow}>
@@ -226,10 +259,10 @@ const ProfileScreen: React.FC = () => {
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Account</Text>
         </View>
-        <View style={styles.menuItem}>
+        <Pressable style={styles.menuItem} onPress={openEditModal}>
           <Text style={styles.menuText}>Personal Information</Text>
           <Text style={styles.menuArrow}>{'›'}</Text>
-        </View>
+        </Pressable>
         <View style={styles.menuItem}>
           <Text style={styles.menuText}>Bank Accounts</Text>
           <Text style={styles.menuArrow}>{'›'}</Text>
@@ -252,6 +285,41 @@ const ProfileScreen: React.FC = () => {
           <Text style={styles.footerText}>Olive v1.0</Text>
         </View>
       </ScrollView>
+
+      <Modal visible={editModalVisible} animationType="slide" transparent>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Edit Profile</Text>
+            <TextInput
+              style={styles.modalInput}
+              placeholder="Full Name"
+              placeholderTextColor={Colors.textTertiary}
+              value={editName}
+              onChangeText={setEditName}
+              autoCapitalize="words"
+            />
+            <TextInput
+              style={styles.modalInput}
+              placeholder="Username"
+              placeholderTextColor={Colors.textTertiary}
+              value={editUsername}
+              onChangeText={(text: string) => setEditUsername(text.replace(/[^a-zA-Z0-9_]/g, ''))}
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+            {editError ? <Text style={styles.modalError}>{editError}</Text> : null}
+            <Pressable
+              style={[styles.modalButton, editLoading && styles.modalButtonDisabled]}
+              onPress={handleSaveProfile}
+              disabled={editLoading}>
+              <Text style={styles.modalButtonText}>{editLoading ? 'Saving...' : 'Save'}</Text>
+            </Pressable>
+            <Pressable onPress={() => setEditModalVisible(false)} style={styles.modalCancel}>
+              <Text style={styles.modalCancelText}>Cancel</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -427,6 +495,60 @@ const styles = StyleSheet.create({
   footerText: {
     ...Typography.bodySmall,
     color: Colors.textTertiary,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    paddingHorizontal: Spacing.xl,
+  },
+  modalContent: {
+    backgroundColor: Colors.backgroundPrimary,
+    borderRadius: 12,
+    padding: Spacing.lg,
+    maxWidth: 400,
+    alignSelf: 'center',
+    width: '100%' as any,
+  },
+  modalTitle: {
+    ...Typography.headerMedium,
+    color: Colors.textPrimary,
+    marginBottom: Spacing.lg,
+  },
+  modalInput: {
+    ...Typography.bodyLarge,
+    color: Colors.textPrimary,
+    borderBottomWidth: 2,
+    borderBottomColor: Colors.borderHeavy,
+    paddingVertical: Spacing.md,
+    marginBottom: Spacing.lg,
+  },
+  modalError: {
+    ...Typography.bodySmall,
+    color: Colors.negative,
+    marginBottom: Spacing.md,
+  },
+  modalButton: {
+    backgroundColor: Colors.accent,
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: Spacing.sm,
+  },
+  modalButtonDisabled: {
+    backgroundColor: Colors.textTertiary,
+  },
+  modalButtonText: {
+    ...Typography.buttonLabel,
+    color: Colors.textOnPrimary,
+  },
+  modalCancel: {
+    alignItems: 'center',
+    paddingVertical: Spacing.sm,
+  },
+  modalCancelText: {
+    ...Typography.bodyMedium,
+    color: Colors.textSecondary,
   },
 });
 

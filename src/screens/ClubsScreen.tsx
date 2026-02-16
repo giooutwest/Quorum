@@ -2,7 +2,6 @@ import React, {useState, useCallback} from 'react';
 import {View, FlatList, Text, StyleSheet, Pressable} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {OliveLogo} from '@components';
-import {mockPools} from '@data';
 import {Colors, Typography, Spacing} from '@theme';
 import {Club} from '@app-types';
 import ClubChatScreen from './ClubChatScreen';
@@ -71,6 +70,7 @@ const ClubRow: React.FC<{club: Club; onPress: () => void}> = ({club, onPress}) =
 
 const ClubsScreen: React.FC = () => {
   const [selectedClub, setSelectedClub] = useState<Club | null>(null);
+  const [pools] = useState<Club[]>([]);
 
   const handleBack = useCallback(() => {
     setSelectedClub(null);
@@ -83,16 +83,32 @@ const ClubsScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.headerBar}>
+        <View style={styles.headerSpacer} />
         <OliveLogo size={24} />
+        <Pressable style={styles.addButton} onPress={() => {}}>
+          <Text style={styles.addButtonText}>+</Text>
+        </Pressable>
       </View>
-      <FlatList
-        data={mockPools}
-        renderItem={({item}: {item: Club}) => (
-          <ClubRow club={item} onPress={() => setSelectedClub(item)} />
-        )}
-        keyExtractor={(item: Club) => item.id}
-        showsVerticalScrollIndicator={false}
-      />
+      {pools.length === 0 ? (
+        <View style={styles.emptyState}>
+          <View style={styles.emptyIcon}>
+            <View style={styles.emptyPool}>
+              <View style={styles.emptyFloat} />
+            </View>
+          </View>
+          <Text style={styles.emptyTitle}>No pools yet</Text>
+          <Text style={styles.emptySubtitle}>Create a pool to start investing with friends</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={pools}
+          renderItem={({item}: {item: Club}) => (
+            <ClubRow club={item} onPress={() => setSelectedClub(item)} />
+          )}
+          keyExtractor={(item: Club) => item.id}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -103,14 +119,73 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundPrimary,
   },
   headerBar: {
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.lg,
     borderBottomWidth: 1,
     borderBottomColor: Colors.borderHeavy,
   },
-  headerTitle: {
-    ...Typography.headerLarge,
+  headerSpacer: {
+    width: 32,
+  },
+  addButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: Colors.accent,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  addButtonText: {
+    fontSize: 20,
+    color: Colors.textOnPrimary,
+    fontWeight: '600',
+    lineHeight: 22,
+  },
+  emptyState: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.xl,
+  },
+  emptyIcon: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: Colors.accentLight,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: Spacing.lg,
+  },
+  emptyPool: {
+    width: 32,
+    height: 20,
+    borderWidth: 2.5,
+    borderColor: Colors.accent,
+    borderRadius: 4,
+    transform: [{rotate: '-12deg'}],
+  },
+  emptyFloat: {
+    position: 'absolute',
+    top: 2,
+    right: 2,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    borderWidth: 2.5,
+    borderColor: Colors.accentMuted,
+  },
+  emptyTitle: {
+    ...Typography.headerMedium,
     color: Colors.textPrimary,
+    marginBottom: Spacing.sm,
+  },
+  emptySubtitle: {
+    ...Typography.bodyMedium,
+    color: Colors.textSecondary,
+    textAlign: 'center',
   },
   clubRow: {
     flexDirection: 'row',
